@@ -9,17 +9,17 @@
 
 using namespace std;
 
-class Structs {
-public:
+class Maze {
+private:
+    vector<vector<bool>*>* maze;
+    int height;
+    int width;
 
-    struct Maze {
-        vector<vector<bool>*>* maze;
-        int height;
-        int width;
-        Maze(int height, int width): height(height), width(width) {
-            maze = new vector(height, new vector<bool>(width));
-        }
-    };
+    Maze(int height, int width): height(height), width(width) {
+        maze = new vector(height, new vector<bool>(width));
+    }
+
+public:
 
     struct Coordinate {
         int x;
