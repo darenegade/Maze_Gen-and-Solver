@@ -15,11 +15,13 @@ private:
     int height;
     int width;
 
+public:
+
     Maze(int height, int width): height(height), width(width) {
         maze = new vector(height, new vector<bool>(width));
     }
 
-public:
+    Maze(vector<vector<bool>*>* vec): height(vec->size()), width(vec->front()->size()), maze(vec) {}
 
     struct Coordinate {
         int x;
