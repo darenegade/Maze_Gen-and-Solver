@@ -1,0 +1,7 @@
+{
+  "name": "lab-backtrack",
+  "short_name": "lab-backtrack",
+  "description": "A Simple Documentation for a Backtrack Algorithmn written in c++.",
+  "start_url": "/",
+  "display": "standalone"
+}
