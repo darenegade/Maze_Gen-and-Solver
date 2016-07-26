@@ -28,6 +28,22 @@ public:
         Coordinate(int x, int y) : x(x), y(y) {}
     };
 
+    bool getPosition(int x, int y) {
+        return maze->at(y)->at(x);
+    }
+
+    void setPosition(int x, int y, bool value) {
+        maze->at(y)->at(x) = value;
+    }
+
+    int getHeight(){
+        return height;
+    }
+
+    int getWidth(){
+        return width;
+    }
+
 };
 
 #endif //GRP04_ALGDATII_STRUCTS_H
