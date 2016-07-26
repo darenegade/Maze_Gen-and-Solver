@@ -4,10 +4,22 @@
 #include <iostream>
 #include "../Structs/Structs.h"
 #include "Backtracker.h"
+#include <vector>
 
-Maze* maze = new Maze(5,5);
+vector<vector<bool>> vec {{0,1,0,1,0},
+                          {0,1,0,0,0},
+                          {0,0,0,1,0},
+                          {1,1,1,1,0},
+                          {0,0,0,0,0}};
+Maze* maze = new Maze(vec);
+Backtracker *bt = new Backtracker(maze);
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Started!" << std::endl;
+
+    bt->solve(new Maze::Coordinate(0,0), new Maze::Coordinate(0,4));
+
+    std::cout << "Ended!!" << std::endl;
+
     return 0;
 }
