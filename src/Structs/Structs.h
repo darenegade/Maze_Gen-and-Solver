@@ -28,12 +28,12 @@ public:
         Coordinate(int x, int y) : x(x), y(y) {}
     };
 
-    bool getPosition(int x, int y) {
-        return maze->at(y)->at(x);
+    bool getPosition(const Coordinate coordinate) {
+        return maze->at(coordinate.y)->at(coordinate.x);
     }
 
-    void setPosition(int x, int y, bool value) {
-        maze->at(y)->at(x) = value;
+    void setPosition(const  Coordinate coordinate, bool value) {
+        maze->at(coordinate.y)->at(coordinate.x) = value;
     }
 
     int getHeight(){
