@@ -1,17 +1,40 @@
-# Enable C++ support
+sudo: required
+dist: precise
 language: cpp
+
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env: COMPILER=g++-5
+
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+      env: COMPILER=clang++-3.7
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y libopencv-dev
+
 # Dependencies
 install:
     # SDL2
     - curl -O http://www.libsdl.org/release/SDL2-2.0.4.tar.gz
     - tar -xzvf SDL2-2.0.4.tar.gz
     - (cd SDL2-2.0.4 && ./configure && make && sudo make install)
-# Compiler selection
-compiler:
-  - clang
-  - gcc
-# Build steps
+
 script:
   - mkdir build
   - cd build
-  - cmake .. && make
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
