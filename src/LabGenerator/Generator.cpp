@@ -122,13 +122,3 @@ Maze * getRandomMaze(){
 }
 
 
-/**
- * my testmain - arne2
- * @return
- */
-int main(){
-    Maze * maze = getRandomMaze();
-    return 0;
-}
-
-
