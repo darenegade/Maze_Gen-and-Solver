@@ -40,3 +40,15 @@ void Visualizer::visualize() {
         SDL_Quit();
     }
 }
+
+bool Visualizer::init() {
+    return false;
+}
+
+bool Visualizer::loadMedia() {
+    return false;
+}
+
+void Visualizer::close() {
+
+}

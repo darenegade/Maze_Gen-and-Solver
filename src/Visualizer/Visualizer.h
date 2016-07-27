@@ -18,6 +18,9 @@ private:
     const int SCREEN_POS_X = 50;
     const int SCREEN_POS_Y = 50;
 
+    bool init();
+    bool loadMedia();
+    void close();
 
 public:
     Visualizer(){};
