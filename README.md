@@ -1,4 +1,9 @@
 # grp04-algdatII
+[![](https://travis-ci.org/algdat/grp04-algdatII.svg?branch=master)](https://travis-ci.org/algdat/grp04-algdatII)
+
+## Slides
+
+Link zur Presentation: [Google-Slides](https://docs.google.com/presentation/d/1Pdye6wak54ME0-gzCj-k0S3rz5Ayfoy9sa8NZLTxUZI/edit?usp=sharing)
 
 ## Datenstrukturen
 

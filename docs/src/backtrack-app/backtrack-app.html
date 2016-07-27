@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles-classes.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<dom-module id="backtrack-app">
+  <template>
+    <style>
+      :root {
+        --primary-color:  var(--paper-pink-500);
+      }
+
+      :host {
+        display: block;
+      }
+
+      app-header {
+        @apply(--paper-font-title);
+        color: white;
+        background-color: var(--primary-color);
+      }
+
+      p,ul {
+        @apply(--paper-font-body2);
+      }
+
+      .content {
+        @apply(--layout-vertical);
+        margin: 32px 10%;
+      }
+
+    </style>
+    <app-header-layout>
+      <app-header fixed shadow>
+        <app-toolbar>
+          <div>Lab-Backtracker</div>
+        </app-toolbar>
+      </app-header>
+      <div class="content">
+        <div class="paper-font-display3">Backtracker</div>
+        <p>
+          This is a simple implementation for the Backtrack-Algorithm to solve a Maze by given entry and exit point.
+          It was done using C++.
+        </p>
+        <p>
+          As an addition it contains a simple GUI to view the results.
+        </p>
+
+        <div class="paper-font-display3">Sources</div>
+        <ul>
+          <li>Buch</li>
+          <li>Wikipedia: <a href="https://de.wikipedia.org/wiki/BackTrack">https://de.wikipedia.org/wiki/BackTrack</a></li>
+        </ul>
+
+      </div>
+    </app-header-layout>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'backtrack-app',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'backtrack-app',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
