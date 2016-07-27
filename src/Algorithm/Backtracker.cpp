@@ -22,12 +22,12 @@ bool Backtracker::solve(const Maze::Coordinate *end, list<Maze::Coordinate> *pat
     return false;
 }
 
-list<Maze::Coordinate>* Backtracker::solve(const Maze::Coordinate *start, const Maze::Coordinate *end) {
+list<Maze::Coordinate> Backtracker::solve(const Maze::Coordinate *start, const Maze::Coordinate *end) {
     list<Maze::Coordinate> *path = new list<Maze::Coordinate>{1, *start};
     if(solve(end, path)){
-        return path;
+        return *path;
     } else {
-        return nullptr;
+        return {};
     }
 }
 

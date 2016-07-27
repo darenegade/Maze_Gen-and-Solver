@@ -6,16 +6,24 @@
 #include "../LabGenerator/Generator.cpp"
 #include "Backtracker.cpp"
 
+using namespace std;
+
 int main() {
-    std::cout << "Started!" << std::endl;
+    cout << "Started!" << endl;
 
     Maze *maze = getDefaultLabirith();
 
     Backtracker *bt = new Backtracker(maze);
 
-    bt->solve(new Maze::Coordinate(0,0), new Maze::Coordinate(0,4));
+    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(11,10));
 
-    std::cout << "Ended!!" << std::endl;
+    cout << "Waypointsize: " << way.size() << endl;
+
+    for(list<Maze::Coordinate>::iterator it = way.begin(); it != way.end(); it++){
+        cout << "Waypoint: {" << it->x << "," << it->y << "}"<<endl;
+    }
+
+    cout << "Ended!!" << endl;
 
     return 0;
 }
