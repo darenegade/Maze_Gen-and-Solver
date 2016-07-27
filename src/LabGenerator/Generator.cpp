@@ -9,6 +9,10 @@ using namespace std;
 static const int HEIGHT = 12;
 static const int WIDTH = 12;
 
+/**
+ * Returns the static default Maze for an example
+ * @return default maze
+ */
 Maze * getDefaultLabirith(){
     Maze * maze = new Maze(HEIGHT,WIDTH);
     int test[HEIGHT][WIDTH] = {{1,1,1,1,1,0,1,1,1,1,1,1},
@@ -23,19 +27,13 @@ Maze * getDefaultLabirith(){
                                {1,0,1,0,1,1,1,0,1,1,0,1},
                                {1,0,1,0,0,0,0,0,0,0,0,1},
                                {1,1,1,0,1,1,1,1,1,1,1,1}};
-    for(int y; y < HEIGHT; y++){
-        for(int x; x < WIDTH; x++){
+    for(int y = 0; y < HEIGHT; y++){
+        for(int x = 0; x < WIDTH; x++){
             Maze::Coordinate *coord = new Maze::Coordinate(x, y);
-            maze->setPosition(coord, test[y][x]);
+            maze->setPosition(coord, (bool)test[y][x]);
         }
     }
     return maze;
-}
-
-int main() {
-    cout << "hello" << endl;
-
-    return 0;
 }
 
 
