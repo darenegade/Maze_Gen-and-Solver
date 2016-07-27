@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <list>
 #include "../Structs/Structs.h"
-#include "../LabGenerator/Generator.cpp"
 
 class Visualizer {
 
@@ -20,6 +19,11 @@ private:
 
     //The surface contained by the window
     SDL_Surface *gScreenSurface = NULL;
+
+    Maze *maze;
+    list<Maze::Coordinate> *coordinates;
+    Maze::Coordinate *start;
+    Maze::Coordinate *end;
 
     //Screen dimension and position constants
     int SCREEN_WIDTH = 1280;
@@ -40,20 +44,21 @@ private:
 
     bool init();
 
-    void drawWalls(Maze *maze);
+    void drawWalls();
 
-    void drawWays(Maze *maze);
+    void drawWays();
 
-    void drawDoors(Maze::Coordinate *entry, Maze::Coordinate *exit);
+    void drawDoors();
 
-    void drawPath(list<Maze::Coordinate> coords);
+    void drawPath();
 
     void close();
 
 public:
-    Visualizer() {};
-
-    Visualizer(int width, int height) : SCREEN_WIDTH(width), SCREEN_HEIGHT(height) {}
+    Visualizer(Maze *maze,
+               list<Maze::Coordinate> *coordinates,
+               Maze::Coordinate *start,
+               Maze::Coordinate *end) : maze(maze), coordinates(coordinates), start(start), end(end) {};
 
     void visualize();
 };

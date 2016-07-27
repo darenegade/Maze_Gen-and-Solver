@@ -13,14 +13,30 @@ void Visualizer::visualize() {
         exit(EXIT_FAILURE);
     };
 
-    drawWalls(getDefaultLabyrinth());
-    drawWays(getDefaultLabyrinth());
+    drawWalls();
+    drawWays();
+    drawDoors();
+    drawPath();
 
     //Update the surface
     SDL_UpdateWindowSurface(gWindow);
-    SDL_Delay(10000);
+
+    //Main loop flag
+    bool quit = false;
+    //Event handler
+    SDL_Event e;
+    //While application is running
+    while (!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            //User requests quit
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+    }
     close();
 }
+
 
 bool Visualizer::init() {
     //Initialization flag
@@ -67,7 +83,7 @@ void Visualizer::close() {
     SDL_Quit();
 }
 
-void Visualizer::drawWays(Maze *maze) {
+void Visualizer::drawWays() {
     SDL_Rect rect = *new SDL_Rect();
     rect.h = ENTITY_SIZE;
     rect.w = ENTITY_SIZE;
@@ -84,7 +100,7 @@ void Visualizer::drawWays(Maze *maze) {
     }
 }
 
-void Visualizer::drawWalls(Maze *maze) {
+void Visualizer::drawWalls() {
     SDL_Rect rect = *new SDL_Rect();
     rect.h = ENTITY_SIZE;
     rect.w = ENTITY_SIZE;
@@ -101,25 +117,26 @@ void Visualizer::drawWalls(Maze *maze) {
     }
 }
 
-void Visualizer::drawDoors(Maze::Coordinate *entry, Maze::Coordinate *exit) {
+void Visualizer::drawDoors() {
     SDL_Rect rect = *new SDL_Rect();
     rect.h = ENTITY_SIZE;
     rect.w = ENTITY_SIZE;
 
-    rect.x = entry->x;
-    rect.y = entry->y;
+    rect.x = start->x;
+    rect.y = start->y;
     SDL_FillRect(gScreenSurface, &rect, cDoor);
-    rect.x = exit->x;
-    rect.y = exit->y;
+    rect.x = end->x;
+    rect.y = end->y;
     SDL_FillRect(gScreenSurface, &rect, cDoor);
 }
 
-void Visualizer::drawPath(list<Maze::Coordinate> coords) {
+void Visualizer::drawPath() {
     SDL_Rect rect = *new SDL_Rect();
     rect.h = ENTITY_SIZE;
     rect.w = ENTITY_SIZE;
     Maze::Coordinate *coordinate;
-    for (list<Maze::Coordinate>::iterator iterator = coords.begin(), end = coords.end(); iterator != end; ++iterator) {
+    for (list<Maze::Coordinate>::iterator iterator = coordinates->begin(), end = coordinates->end();
+         iterator != end; ++iterator) {
         coordinate = &*iterator;
         rect.x = coordinate->x;
         rect.y = coordinate->y;
