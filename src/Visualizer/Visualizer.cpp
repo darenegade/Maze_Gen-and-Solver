@@ -122,11 +122,11 @@ void Visualizer::drawDoors() {
     rect.h = ENTITY_SIZE;
     rect.w = ENTITY_SIZE;
 
-    rect.x = start->x;
-    rect.y = start->y;
+    rect.x = start->x * ENTITY_SIZE;
+    rect.y = start->y * ENTITY_SIZE;
     SDL_FillRect(gScreenSurface, &rect, cDoor);
-    rect.x = end->x;
-    rect.y = end->y;
+    rect.x = end->x * ENTITY_SIZE;
+    rect.y = end->y * ENTITY_SIZE;
     SDL_FillRect(gScreenSurface, &rect, cDoor);
 }
 
@@ -138,8 +138,8 @@ void Visualizer::drawPath() {
     for (list<Maze::Coordinate>::iterator iterator = coordinates->begin(), end = coordinates->end();
          iterator != end; ++iterator) {
         coordinate = &*iterator;
-        rect.x = coordinate->x;
-        rect.y = coordinate->y;
+        rect.x = coordinate->x * ENTITY_SIZE;
+        rect.y = coordinate->y * ENTITY_SIZE;
         SDL_FillRect(gScreenSurface, &rect, cPath);
     }
 
