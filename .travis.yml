@@ -7,3 +7,9 @@ compiler:
 # Build steps
 script:
   - npm install -g polymer-cli
+  - cd docs
+  - polymer build
+  - cd ..
+  - cp -r ./* ./tmp
+  - cp -r /tmp/docs/build/bundled/* ./
+  
