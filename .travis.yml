@@ -1,5 +1,8 @@
 # Enable C++ support
 language: cpp
+# Dependencies
+install:
+  - sudo apt-get install libsdl2-dev
 # Compiler selection
 compiler:
   - clang
