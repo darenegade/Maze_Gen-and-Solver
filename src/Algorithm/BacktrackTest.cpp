@@ -3,18 +3,15 @@
 //
 #include <iostream>
 #include "../Structs/Structs.h"
+#include "../LabGenerator/Generator.cpp"
 #include "Backtracker.cpp"
-
-vector<vector<bool>> vec {{0,1,0,1,0},
-                          {0,1,0,0,0},
-                          {0,0,0,1,0},
-                          {1,1,1,1,0},
-                          {0,0,0,0,0}};
-Maze* maze = new Maze(&vec);
-Backtracker *bt = new Backtracker(maze);
 
 int main() {
     std::cout << "Started!" << std::endl;
+
+    Maze *maze = getDefaultLabirith();
+
+    Backtracker *bt = new Backtracker(maze);
 
     bt->solve(new Maze::Coordinate(0,0), new Maze::Coordinate(0,4));
 
