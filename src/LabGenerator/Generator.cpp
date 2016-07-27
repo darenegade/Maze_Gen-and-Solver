@@ -3,9 +3,10 @@
 //
 
 #include <iostream>
+#include <stdlib.h>
 #include "../Structs/Structs.h"
-using namespace std;
 
+using namespace std;
 static const int HEIGHT = 12;
 static const int WIDTH = 12;
 
@@ -34,6 +35,28 @@ Maze * getDefaultLabyrinth(){
         }
     }
     return maze;
+}
+
+Maze * getMazeWithWalls(){
+    int start = rand()%(WIDTH-2)+1;
+    int end = rand()%(WIDTH-2)+1;
+    Maze * maze = new Maze(HEIGHT,WIDTH);
+    for(int y = 0; y < HEIGHT; y++){
+        for(int x = 0; x < WIDTH; x++){
+            Maze::Coordinate *coord = new Maze::Coordinate(x, y);
+            bool foo = false;
+            if((x == 0 || x == WIDTH-1)||(y == 0 && x != start)||(y == HEIGHT-1 && x != end)){
+                foo = true;
+            }
+            maze->setPosition(coord, foo);
+        }
+    }
+    return maze;
+}
+
+int main(){
+    Maze * maze = getMazeWithWalls();
+    return 0;
 }
 
 
