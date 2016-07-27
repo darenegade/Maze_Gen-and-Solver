@@ -6,6 +6,4 @@ compiler:
   - gcc
 # Build steps
 script:
-  - mkdir build
-  - cd build
-  - cmake .. && make
+  - npm install -g polymer-cli
