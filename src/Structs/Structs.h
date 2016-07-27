@@ -15,11 +15,11 @@ private:
     int height;
     int width;
 
-    Maze(int height, int width): height(height), width(width) {
+public:
+
+    Maze(const int height,const int width): height(height), width(width) {
         maze = new vector(height, new vector<bool>(width));
     }
-
-public:
 
     struct Coordinate {
         int x;
@@ -28,12 +28,12 @@ public:
         Coordinate(int x, int y) : x(x), y(y) {}
     };
 
-    bool getPosition(const Coordinate coordinate) {
-        return maze->at(coordinate.y)->at(coordinate.x);
+    bool getPosition(Coordinate * coordinate) {
+        return maze->at(coordinate->y)->at(coordinate->x);
     }
 
-    void setPosition(const  Coordinate coordinate, bool value) {
-        maze->at(coordinate.y)->at(coordinate.x) = value;
+    void setPosition(Coordinate * coordinate, bool value) {
+        maze->at(coordinate->y)->at(coordinate->x) = value;
     }
 
     int getHeight(){
