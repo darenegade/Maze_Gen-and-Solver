@@ -3,6 +3,7 @@
 # undef main
 #endif /* main */
 int main() {
-    visualize();
+    Visualizer visualizer = *new Visualizer();
+    visualizer.visualize();
     return 0;
 }
