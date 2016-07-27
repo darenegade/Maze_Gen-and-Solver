@@ -3,15 +3,14 @@
 //
 #include <iostream>
 #include "../Structs/Structs.h"
-#include "Backtracker.h"
-#include <vector>
+#include "Backtracker.cpp"
 
 vector<vector<bool>> vec {{0,1,0,1,0},
                           {0,1,0,0,0},
                           {0,0,0,1,0},
                           {1,1,1,1,0},
                           {0,0,0,0,0}};
-Maze* maze = new Maze(vec);
+Maze* maze = new Maze(&vec);
 Backtracker *bt = new Backtracker(maze);
 
 int main() {

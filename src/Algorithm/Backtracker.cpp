@@ -4,13 +4,13 @@
 
 #include "Backtracker.h"
 
-bool Backtracker::solve(Maze::Coordinate *end, list<Maze::Coordinate> *path) {
-    const Maze::Coordinate current = path->back();
+bool Backtracker::solve(const Maze::Coordinate *end, list<Maze::Coordinate> *path) {
+    const Maze::Coordinate *current = &path->back();
 
     // find next empty tile
-    for(Maze::Coordinate next = getNextEmptyNeighbour(current); next != nullptr; next = getNextEmptyNeighbour(current)) {
+    for(Maze::Coordinate *next = getNextEmptyNeighbour(current); next != nullptr; next = getNextEmptyNeighbour(current)) {
         // recursion with new step
-        path->push_back(next);
+        path->push_back(*next);
         if (solve(end, path)) {
             // found path
             return true;
@@ -22,8 +22,8 @@ bool Backtracker::solve(Maze::Coordinate *end, list<Maze::Coordinate> *path) {
     return false;
 }
 
-list<Maze::Coordinate> Backtracker::solve(Maze::Coordinate *start, Maze::Coordinate *end) {
-    list<Maze::Coordinate> path {start};
+list<Maze::Coordinate>* Backtracker::solve(const Maze::Coordinate *start, const Maze::Coordinate *end) {
+    list<Maze::Coordinate> *path = new list<Maze::Coordinate>{1, *start};
     if(solve(end, path)){
         return path;
     } else {
@@ -31,29 +31,29 @@ list<Maze::Coordinate> Backtracker::solve(Maze::Coordinate *start, Maze::Coordin
     }
 }
 
-Maze::Coordinate Backtracker::getNextEmptyNeighbour(Maze::Coordinate *current){
+Maze::Coordinate* Backtracker::getNextEmptyNeighbour(const Maze::Coordinate *current){
     // right
-    const Maze::Coordinate next = new Maze::Coordinate(current->x+1, current->y);
+    Maze::Coordinate *next = new Maze::Coordinate(current->x+1, current->y);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, 1);
+        maze->setPosition(next, true);
         return next;
     }
     // bottom
-    const Maze::Coordinate next = new Maze::Coordinate(current->x, current->y+1);
+    next = new Maze::Coordinate(current->x, current->y+1);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, 1);
+        maze->setPosition(next, true);
         return next;
     }
     // left
-    const Maze::Coordinate next = new Maze::Coordinate(current->x-1, current->y);
+    next = new Maze::Coordinate(current->x-1, current->y);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, 1);
+        maze->setPosition(next, true);
         return next;
     }
     // bottom
-    const Maze::Coordinate next = new Maze::Coordinate(current->x, current->y-1);
+    next = new Maze::Coordinate(current->x, current->y-1);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, 1);
+        maze->setPosition(next, true);
         return next;
     }
     return nullptr;
