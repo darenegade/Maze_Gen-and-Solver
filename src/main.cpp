@@ -1,6 +1,6 @@
-#include <iostream>
+#include "Visualizer/Visualizer.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    visualize();
     return 0;
 }
