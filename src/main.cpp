@@ -6,14 +6,23 @@
 # undef main
 #endif /* main */
 int main() {
-    Maze* m = getDefaultLabyrinth();
+    Maze* m = getRandomMaze();
+    Maze::Coordinate* start;
+    Maze::Coordinate* end;
+
+    for(int i = 0; i < m->getWidth(); i++){
+        if(!m->getPosition(i, 0)){
+            start = new Maze::Coordinate(i, 0);
+        };
+        if(!m->getPosition(i, m->getHeight()-1)){
+            end = new Maze::Coordinate(i, m->getHeight()-1);
+        };
+    }
 
     Backtracker *bt = new Backtracker(m);
-    Maze::Coordinate *start = new Maze::Coordinate(5, 0);
-    Maze::Coordinate *coordinate = new Maze::Coordinate(3, 11);
-    list<Maze::Coordinate> way = bt->solve(start, coordinate);
+    list<Maze::Coordinate> way = bt->solve(start, end);
 
-    Visualizer visualizer = *new Visualizer(m, &way, start, coordinate);
+    Visualizer visualizer = *new Visualizer(m, &way, start, end);
     visualizer.visualize();
     return 0;
 }

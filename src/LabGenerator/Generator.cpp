@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
 #include "../Structs/Structs.h"
 
 using namespace std;
@@ -63,6 +64,7 @@ Maze * getMazeWithWalls(){
  * @return random maze
  */
 Maze * getRandomMaze(){
+    srand (time(NULL));
     int start = rand()%(WIDTH-2)+1;
     int end = rand()%(WIDTH-2)+1;
     Maze * maze = new Maze(HEIGHT,WIDTH);
