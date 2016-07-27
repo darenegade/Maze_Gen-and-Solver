@@ -1,5 +1,6 @@
 # Enable C++ support
 language: cpp
+node_js: "6"
 # Compiler selection
 compiler:
   - clang
