@@ -23,7 +23,18 @@ int main() {
         cout << "Waypoint: {" << it->x << "," << it->y << "}"<<endl;
     }
 
+    cout << "Maze: " << endl;
+
+    for(int i = 0; i < maze->getHeight(); i++){
+        for(int j = 0; j < maze->getWidth(); j++) {
+            cout << maze->getPosition(j,i);
+        }
+        cout<<endl;
+    }
+
     cout << "Ended!!" << endl;
+
+
 
     return 0;
 }

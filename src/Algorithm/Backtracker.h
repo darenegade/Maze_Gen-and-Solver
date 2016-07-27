@@ -11,10 +11,11 @@
 class Backtracker {
 private:
     Maze *maze;
+    Maze *original;
     Maze::Coordinate* getNextEmptyNeighbour(const Maze::Coordinate*);
     bool solve(const Maze::Coordinate*, list<Maze::Coordinate>*);
 public:
-    Backtracker(Maze* m) : maze(m){}
+    Backtracker(Maze* m) : original(m){}
 
     list<Maze::Coordinate> solve(Maze::Coordinate*, Maze::Coordinate*);
 };

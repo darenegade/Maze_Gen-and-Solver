@@ -26,6 +26,8 @@ bool Backtracker::solve(const Maze::Coordinate *end, list<Maze::Coordinate> *pat
 list<Maze::Coordinate> Backtracker::solve(Maze::Coordinate *start, Maze::Coordinate *end) {
     list<Maze::Coordinate> *path = new list<Maze::Coordinate>{1, *start};
 
+    maze = new Maze(*original);
+
     maze->setPosition(start,true);
 
     if(solve(end, path)){
