@@ -11,11 +11,21 @@ using namespace std;
 int main() {
     cout << "Started!" << endl;
 
-    Maze *maze = getDefaultLabirith();
+    //Maze *maze = getDefaultLabirith();
+
+    int size = 300;
+
+    Maze *maze = new Maze(size,size);
+
+    for(int i = 0; i < maze->getHeight(); i++){
+        for(int j = 0; j < maze->getWidth(); j++) {
+            maze->setPosition(j,i,false);
+        }
+    }
 
     Backtracker *bt = new Backtracker(maze);
 
-    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(10,10));
+    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(size-1,1));
 
     cout << "Waypointsize: " << way.size() << endl;
 
