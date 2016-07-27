@@ -3,15 +3,12 @@
 //
 #include <iostream>
 #include "../Structs/Structs.h"
-#include "../LabGenerator/Generator.cpp"
-#include "Backtracker.cpp"
+#include "Backtracker.h"
 
 using namespace std;
 
 int main() {
     cout << "Started!" << endl;
-
-    //Maze *maze = getDefaultLabirith();
 
     int size = 300;
 
