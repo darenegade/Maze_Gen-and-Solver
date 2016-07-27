@@ -37,6 +37,10 @@ Maze * getDefaultLabyrinth(){
     return maze;
 }
 
+/**
+ * Returns the static Maze where the edges are walls except for a start end point.
+ * @return empty maze
+ */
 Maze * getMazeWithWalls(){
     int start = rand()%(WIDTH-2)+1;
     int end = rand()%(WIDTH-2)+1;
@@ -54,6 +58,10 @@ Maze * getMazeWithWalls(){
     return maze;
 }
 
+/**
+ * Returns a complete random maze. There will be a solution to the maze
+ * @return random maze
+ */
 Maze * getRandomMaze(){
     int start = rand()%(WIDTH-2)+1;
     int end = rand()%(WIDTH-2)+1;
@@ -113,6 +121,11 @@ Maze * getRandomMaze(){
     return maze;
 }
 
+
+/**
+ * my testmain - arne2
+ * @return
+ */
 int main(){
     Maze * maze = getRandomMaze();
     return 0;
