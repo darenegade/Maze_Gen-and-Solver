@@ -28,6 +28,10 @@ public:
         Coordinate(int x, int y) : x(x), y(y) {}
     };
 
+    bool getPosition(int x, int y){
+        return maze.at(y).at(x);
+    }
+
     bool getPosition(Coordinate * coordinate) {
         return maze.at(coordinate->y).at(coordinate->x);
     }

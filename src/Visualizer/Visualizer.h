@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <list>
 #include "../Structs/Structs.h"
+#include "../LabGenerator/Generator.cpp"
 
 class Visualizer {
 
@@ -29,13 +30,13 @@ private:
     // Entity Dimensions
     const int ENTITY_SIZE = 30;
     // Wall Color
-    Uint32 cWall = SDL_MapRGBA(gScreenSurface->format, 153, 0, 0, 255);
+    Uint32 cWall;
     // Color of free paths
-    Uint32 cWay = SDL_MapRGBA(gScreenSurface->format, 224, 224, 224, 255);
+    Uint32 cWay;
     // Color of entry and exit
-    Uint32 cDoor = SDL_MapRGBA(gScreenSurface->format, 0, 0, 255, 255);
+    Uint32 cDoor;
     // Color of the calculated path
-    Uint32 cPath = SDL_MapRGBA(gScreenSurface->format, 102, 255, 102, 255);
+    Uint32 cPath;
 
     bool init();
 

@@ -13,14 +13,12 @@ void Visualizer::visualize() {
         exit(EXIT_FAILURE);
     };
 
-    drawWalls();
-    drawWays();
-    drawDoors();
-    drawPath();
+    drawWalls(getDefaultLabyrinth());
+    drawWays(getDefaultLabyrinth());
 
     //Update the surface
     SDL_UpdateWindowSurface(gWindow);
-    SDL_Delay(2000);
+    SDL_Delay(10000);
     close();
 }
 
@@ -50,6 +48,11 @@ bool Visualizer::init() {
             gScreenSurface = SDL_GetWindowSurface(gWindow);
         }
     }
+
+    cWall = SDL_MapRGBA(gScreenSurface->format, 153, 0, 0, 255);
+    cWay = SDL_MapRGBA(gScreenSurface->format, 224, 224, 224, 255);
+    cDoor = SDL_MapRGBA(gScreenSurface->format, 0, 0, 255, 255);
+    cPath = SDL_MapRGBA(gScreenSurface->format, 102, 255, 102, 255);
 
     return success;
 }
