@@ -6,7 +6,7 @@
 #define GRP04_ALGDATII_VISUALIZER_H
 
 //Using SDL and standard IO
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <list>
 #include "../Structs/Structs.h"
