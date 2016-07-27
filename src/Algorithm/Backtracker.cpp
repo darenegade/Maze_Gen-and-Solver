@@ -5,19 +5,23 @@
 #include "Backtracker.h"
 
 bool Backtracker::solve(const Maze::Coordinate *end, list<Maze::Coordinate> *path) {
-    const Maze::Coordinate *current = &path->back();
 
     // find next empty tile
-    for(Maze::Coordinate *next = getNextEmptyNeighbour(current); next != nullptr; next = getNextEmptyNeighbour(current)) {
-        // recursion with new step
+    for(Maze::Coordinate *next = getNextEmptyNeighbour(&path->back()); next != nullptr; next = getNextEmptyNeighbour(&path->back())) {
+
+        //new step
+        maze->setPosition(next, true);
         path->push_back(*next);
-        if ((next->y == end->y && next->x == end->x) || solve(end, path)) {
+
+        if ((next->y == end->y && next->x == end->x)) {
             // found path
             return true;
         }
 
         // backtrack
-        path->pop_back();
+        for(next = getNextEmptyNeighbour(&path->back()); next == nullptr && path->size() > 0; next = getNextEmptyNeighbour(&path->back())) {
+            path->pop_back();
+        }
     }
 
     return false;
@@ -41,25 +45,21 @@ Maze::Coordinate* Backtracker::getNextEmptyNeighbour(const Maze::Coordinate *cur
     // right
     Maze::Coordinate *next = new Maze::Coordinate(current->x+1, current->y);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, true);
         return next;
     }
     // bottom
     next = new Maze::Coordinate(current->x, current->y+1);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, true);
         return next;
     }
     // left
     next = new Maze::Coordinate(current->x-1, current->y);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, true);
         return next;
     }
     // bottom
     next = new Maze::Coordinate(current->x, current->y-1);
     if(!maze->getPosition(next)){
-        maze->setPosition(next, true);
         return next;
     }
     return nullptr;

@@ -10,7 +10,7 @@ using namespace std;
 int main() {
     cout << "Started!" << endl;
 
-    int size = 300;
+    int size = 10000;
 
     Maze *maze = new Maze(size,size);
 
@@ -20,24 +20,24 @@ int main() {
         }
     }
 
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
     Backtracker *bt = new Backtracker(maze);
 
-    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(size-1,1));
+    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(1,2));
 
-    cout << "Waypointsize: " << way.size() << endl;
+    chrono::steady_clock::time_point end= chrono::steady_clock::now();
 
+    cout << "Time difference s = " << chrono::duration_cast<std::chrono::microseconds>(end - begin).count()/1000000.0 <<endl;
+
+
+    /** Ausgabe Waypoints
     for(list<Maze::Coordinate>::iterator it = way.begin(); it != way.end(); it++){
-        cout << "Waypoint: {" << it->x << "," << it->y << "}"<<endl;
+        cout << "Waypoint: {" << it->x << "," << it->y << "} ";
     }
+    **/
 
-    cout << "Maze: " << endl;
-
-    for(int i = 0; i < maze->getHeight(); i++){
-        for(int j = 0; j < maze->getWidth(); j++) {
-            cout << maze->getPosition(j,i);
-        }
-        cout<<endl;
-    }
+    cout << endl << "Waypointsize: " << way.size() << endl;
 
     cout << "Ended!!" << endl;
 
