@@ -34,25 +34,25 @@ list<Maze::Coordinate>* Backtracker::solve(const Maze::Coordinate *start, const 
 Maze::Coordinate* Backtracker::getNextEmptyNeighbour(const Maze::Coordinate *current){
     // right
     Maze::Coordinate *next = new Maze::Coordinate(current->x+1, current->y);
-    if(!maze->getPosition(next)){
+    if((current->x+1) < maze->getHeight() &&!maze->getPosition(next)){
         maze->setPosition(next, true);
         return next;
     }
     // bottom
     next = new Maze::Coordinate(current->x, current->y+1);
-    if(!maze->getPosition(next)){
+    if((current->y+1) < maze->getWidth() &&!maze->getPosition(next)){
         maze->setPosition(next, true);
         return next;
     }
     // left
     next = new Maze::Coordinate(current->x-1, current->y);
-    if(!maze->getPosition(next)){
+    if((current->x-1) >= 0 &&!maze->getPosition(next)){
         maze->setPosition(next, true);
         return next;
     }
     // bottom
     next = new Maze::Coordinate(current->x, current->y-1);
-    if(!maze->getPosition(next)){
+    if((current->y+1) <= 0 &&!maze->getPosition(next)){
         maze->setPosition(next, true);
         return next;
     }
