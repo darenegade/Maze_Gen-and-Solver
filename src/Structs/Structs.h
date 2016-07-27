@@ -29,6 +29,12 @@ public:
     };
 
     bool getPosition(Coordinate * coordinate) {
+
+        if(coordinate->y < 0 || coordinate->x < 0 ||
+                coordinate->x >= getWidth() || coordinate->y >= getHeight()){
+            return true;
+        }
+
         return maze.at(coordinate->y).at(coordinate->x);
     }
 

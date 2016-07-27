@@ -15,7 +15,7 @@ int main() {
 
     Backtracker *bt = new Backtracker(maze);
 
-    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(11,10));
+    list<Maze::Coordinate> way = bt->solve(new Maze::Coordinate(1,1), new Maze::Coordinate(10,10));
 
     cout << "Waypointsize: " << way.size() << endl;
 

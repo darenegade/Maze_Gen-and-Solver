@@ -16,7 +16,7 @@ private:
 public:
     Backtracker(Maze* m) : maze(m){}
 
-    list<Maze::Coordinate> solve(const Maze::Coordinate*,const Maze::Coordinate*);
+    list<Maze::Coordinate> solve(Maze::Coordinate*, Maze::Coordinate*);
 };
 
 
