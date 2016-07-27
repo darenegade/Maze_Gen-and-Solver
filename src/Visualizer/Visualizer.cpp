@@ -15,8 +15,8 @@ void Visualizer::visualize() {
 
     drawWalls();
     drawWays();
-    drawDoors();
     drawPath();
+    drawDoors();
 
     //Update the surface
     SDL_UpdateWindowSurface(gWindow);
