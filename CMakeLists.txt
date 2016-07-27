@@ -12,5 +12,12 @@ else()
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-set(SOURCE_FILES main.cpp)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR})
+
 add_subdirectory(src)
+add_executable(grp04_algdatII src/main.cpp)
+
+target_link_libraries(grp04_algdatII ${SDL2_LIBRARY})
+target_link_libraries(grp04_algdatII visualizer)

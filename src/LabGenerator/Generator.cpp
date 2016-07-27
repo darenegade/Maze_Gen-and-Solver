@@ -13,7 +13,7 @@ static const int WIDTH = 12;
  * Returns the static default Maze for an example
  * @return default maze
  */
-Maze * getDefaultLabyrinth(){
+static Maze * getDefaultLabyrinth(){
     Maze * maze = new Maze(HEIGHT,WIDTH);
     int test[HEIGHT][WIDTH] = {{1,1,1,1,1,0,1,1,1,1,1,1},
                                {1,0,0,0,0,0,0,0,0,0,0,1},
