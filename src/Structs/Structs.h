@@ -11,14 +11,14 @@ using namespace std;
 
 class Maze {
 private:
-    vector<vector<bool>*>* maze;
+    vector<vector<bool>> maze;
     int height;
     int width;
 
 public:
 
     Maze(const int height,const int width): height(height), width(width) {
-        maze = new vector(height, new vector<bool>(width));
+        maze = vector<vector<bool>>(height, vector<bool>(width));
     }
 
     struct Coordinate {
@@ -29,11 +29,11 @@ public:
     };
 
     bool getPosition(Coordinate * coordinate) {
-        return maze->at(coordinate->y)->at(coordinate->x);
+        return maze.at(coordinate->y).at(coordinate->x);
     }
 
     void setPosition(Coordinate * coordinate, bool value) {
-        maze->at(coordinate->y)->at(coordinate->x) = value;
+        maze.at(coordinate->y).at(coordinate->x) = value;
     }
 
     int getHeight(){
