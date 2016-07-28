@@ -91,6 +91,7 @@ Maze * getRandomMaze(){
             case 0 : {
                 if(y > 1) {
                     y--;
+                    break;
                 } else{
                     continue;
                 }
@@ -98,6 +99,7 @@ Maze * getRandomMaze(){
             case 1 : {
                 if (x < WIDTH-2) {
                     x++;
+                    break;
                 } else {
                     continue;
                 }
@@ -105,6 +107,7 @@ Maze * getRandomMaze(){
             case 2 : {
                 if (y < HEIGHT-2) {
                     y++;
+                    break;
                 } else {
                     continue;
                 }
@@ -112,6 +115,7 @@ Maze * getRandomMaze(){
             case 3 : {
                 if (x > 1) {
                     x--;
+                    break;
                 } else {
                     continue;
                 }
