@@ -15,11 +15,10 @@ void Visualizer::visualize() {
 
     drawWalls();
     drawWays();
-    drawPath();
     drawDoors();
-
     //Update the surface
     SDL_UpdateWindowSurface(gWindow);
+    drawPath();
 
     //Main loop flag
     bool quit = false;
@@ -141,6 +140,9 @@ void Visualizer::drawPath() {
         rect.x = coordinate->x * ENTITY_SIZE;
         rect.y = coordinate->y * ENTITY_SIZE;
         SDL_FillRect(gScreenSurface, &rect, cPath);
+        SDL_Delay(200);
+        //Update the surface
+        SDL_UpdateWindowSurface(gWindow);
     }
 
 

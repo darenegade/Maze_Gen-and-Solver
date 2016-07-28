@@ -8,8 +8,8 @@
 #include "../Structs/Structs.h"
 
 using namespace std;
-static const int HEIGHT = 12;
-static const int WIDTH = 12;
+static const int HEIGHT = 100;
+static const int WIDTH = 100;
 
 /**
  * Returns the static default Maze for an example

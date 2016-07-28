@@ -5,24 +5,31 @@
 #ifdef main
 # undef main
 #endif /* main */
+
 int main() {
-    Maze* m = getRandomMaze();
-    Maze::Coordinate* start;
-    Maze::Coordinate* end;
+    list<Maze::Coordinate> way = {};
+    Maze::Coordinate *start;
+    Maze::Coordinate *end;
+    Maze *m = getRandomMaze();
+    Backtracker *bt;
+    while (way.empty()) {
+        delete end, start, m, way, bt;
+        m = getRandomMaze();
 
-    for(int i = 0; i < m->getWidth(); i++){
-        if(!m->getPosition(i, 0)){
-            start = new Maze::Coordinate(i, 0);
-        };
-        if(!m->getPosition(i, m->getHeight()-1)){
-            end = new Maze::Coordinate(i, m->getHeight()-1);
-        };
+        for (int i = 0; i < m->getWidth(); i++) {
+            if (!m->getPosition(i, 0)) {
+                start = new Maze::Coordinate(i, 0);
+            };
+            if (!m->getPosition(i, m->getHeight() - 1)) {
+                end = new Maze::Coordinate(i, m->getHeight() - 1);
+            };
+        }
+        bt = new Backtracker(m);
+        way = bt->solve(start, end);
     }
-
-    Backtracker *bt = new Backtracker(m);
-    list<Maze::Coordinate> way = bt->solve(start, end);
-
     Visualizer visualizer = *new Visualizer(m, &way, start, end);
     visualizer.visualize();
+
+
     return 0;
 }
