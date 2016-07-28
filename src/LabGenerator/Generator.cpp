@@ -85,7 +85,7 @@ Maze * getRandomMaze(){
     int direction;
     Maze::Coordinate *coord = new Maze::Coordinate(x, y);
     maze->setPosition(coord, false);
-    while(y != HEIGHT-2 && x != end){
+    while(y != HEIGHT-2 || x != end){
         direction = rand()%4;
         switch (direction){
             case 0 : {
@@ -126,5 +126,3 @@ Maze * getRandomMaze(){
     }
     return maze;
 }
-
-
