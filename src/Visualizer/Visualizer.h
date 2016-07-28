@@ -26,13 +26,12 @@ private:
     Maze::Coordinate *end;
 
     //Screen dimension and position constants
-    int SCREEN_WIDTH = 1280;
-    int SCREEN_HEIGHT = 1280;
+    int SCREEN_SIZE = 640;
     const int SCREEN_POS_X = 50;
     const int SCREEN_POS_Y = 50;
 
     // Entity Dimensions
-    const int ENTITY_SIZE = 30;
+    int ENTITY_SIZE = 30;
     // Wall Color
     Uint32 cWall;
     // Color of free paths
@@ -58,7 +57,9 @@ public:
     Visualizer(Maze *maze,
                list<Maze::Coordinate> *coordinates,
                Maze::Coordinate *start,
-               Maze::Coordinate *end) : maze(maze), coordinates(coordinates), start(start), end(end) {};
+               Maze::Coordinate *end) : maze(maze), coordinates(coordinates), start(start), end(end) {
+        ENTITY_SIZE = SCREEN_SIZE / max(maze->getHeight(), maze->getWidth());
+    };
 
     void visualize();
 };

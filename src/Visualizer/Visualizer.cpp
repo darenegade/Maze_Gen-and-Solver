@@ -52,8 +52,8 @@ bool Visualizer::init() {
         gWindow = SDL_CreateWindow("Maze Solver",
                                    SCREEN_POS_X,
                                    SCREEN_POS_Y,
-                                   SCREEN_WIDTH,
-                                   SCREEN_HEIGHT,
+                                   SCREEN_SIZE,
+                                   SCREEN_SIZE,
                                    SDL_WINDOW_SHOWN);
         if (gWindow == NULL) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
