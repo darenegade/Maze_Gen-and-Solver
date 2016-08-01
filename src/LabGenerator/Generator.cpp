@@ -135,9 +135,7 @@ void innerMazePart(Maze * maze, Maze::Coordinate * leftUpper, Maze::Coordinate *
     }
     if(horizontal){
         int wall = height/2;
-        if((wall%2)==0){
-            wall--;
-        }
+        wall = rand()%wall*2+1;
         wall+= leftUpper->y;
 
         int door = (rand()%(width/2 + width%2))*2 + leftUpper->x;

@@ -149,7 +149,7 @@ static int drawPath(void *ptr) {
         rect.x = coordinate->x * visualizer->ENTITY_SIZE;
         rect.y = coordinate->y * visualizer->ENTITY_SIZE;
         SDL_FillRect(visualizer->gScreenSurface, &rect, visualizer->cPath);
-        SDL_Delay(2000/sqrt(visualizer->maze->getHeight()*visualizer->maze->getWidth()));
+        SDL_Delay(2000 / sqrt(visualizer->maze->getHeight() * visualizer->maze->getWidth()));
         if (visualizer->gWindow != NULL) {
             //Update the surface
             SDL_UpdateWindowSurface(visualizer->gWindow);

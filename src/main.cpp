@@ -10,7 +10,7 @@ int main() {
     Maze::Coordinate *start;
     Maze::Coordinate *end;
 
-    Maze *m = getRandomMazeWithDivision(320);
+    Maze *m = getRandomMazeWithDivision(300);
     start = new Maze::Coordinate(0, 0);
     end = new Maze::Coordinate(m->getHeight()-1, m->getHeight()-1);
 
