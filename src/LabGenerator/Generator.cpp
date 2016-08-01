@@ -15,24 +15,24 @@ static const int WIDTH = 100;
  * Returns the static default Maze for an example
  * @return default maze
  */
-static Maze * getDefaultLabyrinth(){
-    Maze * maze = new Maze(HEIGHT,WIDTH);
-    int test[HEIGHT][WIDTH] = {{1,1,1,1,1,0,1,1,1,1,1,1},
-                               {1,0,0,0,0,0,0,0,0,0,0,1},
-                               {1,0,1,1,1,1,1,1,1,0,1,1},
-                               {1,0,1,0,0,0,0,0,1,0,0,1},
-                               {1,0,1,0,1,1,1,0,1,1,0,1},
-                               {1,0,0,0,1,0,0,0,1,0,0,1},
-                               {1,1,1,1,1,1,1,0,1,0,1,1},
-                               {1,0,0,0,0,0,1,0,1,1,1,1},
-                               {1,0,1,0,1,0,0,0,0,1,0,1},
-                               {1,0,1,0,1,1,1,0,1,1,0,1},
-                               {1,0,1,0,0,0,0,0,0,0,0,1},
-                               {1,1,1,0,1,1,1,1,1,1,1,1}};
-    for(int y = 0; y < HEIGHT; y++){
-        for(int x = 0; x < WIDTH; x++){
+static Maze *getDefaultLabyrinth() {
+    Maze *maze = new Maze(HEIGHT, WIDTH);
+    int test[HEIGHT][WIDTH] = {{1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1},
+                               {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                               {1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+                               {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+                               {1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
+                               {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+                               {1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1},
+                               {1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1},
+                               {1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+                               {1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
+                               {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                               {1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1}};
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
             Maze::Coordinate *coord = new Maze::Coordinate(x, y);
-            maze->setPosition(coord, (bool)test[y][x]);
+            maze->setPosition(coord, (bool) test[y][x]);
         }
     }
     return maze;
@@ -42,15 +42,15 @@ static Maze * getDefaultLabyrinth(){
  * Returns the static Maze where the edges are walls except for a start end point.
  * @return empty maze
  */
-Maze * getMazeWithWalls(){
-    int start = rand()%(WIDTH-2)+1;
-    int end = rand()%(WIDTH-2)+1;
-    Maze * maze = new Maze(HEIGHT,WIDTH);
-    for(int y = 0; y < HEIGHT; y++){
-        for(int x = 0; x < WIDTH; x++){
+Maze *getMazeWithWalls() {
+    int start = rand() % (WIDTH - 2) + 1;
+    int end = rand() % (WIDTH - 2) + 1;
+    Maze *maze = new Maze(HEIGHT, WIDTH);
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
             Maze::Coordinate *coord = new Maze::Coordinate(x, y);
             bool foo = false;
-            if((x == 0 || x == WIDTH-1)||(y == 0 && x != start)||(y == HEIGHT-1 && x != end)){
+            if ((x == 0 || x == WIDTH - 1) || (y == 0 && x != start) || (y == HEIGHT - 1 && x != end)) {
                 foo = true;
             }
             maze->setPosition(coord, foo);
@@ -63,18 +63,18 @@ Maze * getMazeWithWalls(){
  * Returns a complete random maze. There will be a solution to the maze
  * @return random maze
  */
-Maze * getRandomMaze(){
-    srand (time(NULL));
-    int start = rand()%(WIDTH-2)+1;
-    int end = rand()%(WIDTH-2)+1;
-    Maze * maze = new Maze(HEIGHT,WIDTH);
-    for(int y = 0; y < HEIGHT; y++){
-        for(int x = 0; x < WIDTH; x++){
+Maze *getRandomMaze() {
+    srand(time(NULL));
+    int start = rand() % (WIDTH - 2) + 1;
+    int end = rand() % (WIDTH - 2) + 1;
+    Maze *maze = new Maze(HEIGHT, WIDTH);
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
             Maze::Coordinate *coord = new Maze::Coordinate(x, y);
-            bool foo = (bool)(rand()%2);
-            if((x == 0 || x == WIDTH-1)||(y == 0 && x != start)||(y == HEIGHT-1 && x != end)){
+            bool foo = (bool) (rand() % 2);
+            if ((x == 0 || x == WIDTH - 1) || (y == 0 && x != start) || (y == HEIGHT - 1 && x != end)) {
                 foo = true;
-            } else if((y == 0 && x == start)||(y == HEIGHT-1 && x == end)){
+            } else if ((y == 0 && x == start) || (y == HEIGHT - 1 && x == end)) {
                 foo = false;
             }
             maze->setPosition(coord, foo);
@@ -85,19 +85,19 @@ Maze * getRandomMaze(){
     int direction;
     Maze::Coordinate *coord = new Maze::Coordinate(x, y);
     maze->setPosition(coord, false);
-    while(y != HEIGHT-2 || x != end){
-        direction = rand()%4;
-        switch (direction){
+    while (y != HEIGHT - 2 || x != end) {
+        direction = rand() % 4;
+        switch (direction) {
             case 0 : {
-                if(y > 1) {
+                if (y > 1) {
                     y--;
                     break;
-                } else{
+                } else {
                     continue;
                 }
             }
             case 1 : {
-                if (x < WIDTH-2) {
+                if (x < WIDTH - 2) {
                     x++;
                     break;
                 } else {
@@ -105,7 +105,7 @@ Maze * getRandomMaze(){
                 }
             }
             case 2 : {
-                if (y < HEIGHT-2) {
+                if (y < HEIGHT - 2) {
                     y++;
                     break;
                 } else {
@@ -127,47 +127,49 @@ Maze * getRandomMaze(){
     return maze;
 }
 
-void innerMazePart(Maze * maze, Maze::Coordinate * leftUpper, Maze::Coordinate * rightLower, bool horizontal){
+void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *rightLower, bool horizontal) {
     int height = rightLower->y - leftUpper->y;
     int width = rightLower->x - leftUpper->x;
-    if(height <= 1 || width <= 1){
+    if (height <= 1 || width <= 1) {
         return;
     }
-    if(horizontal){
-        int wall = height/2;
-        wall = rand()%wall*2+1;
-        wall+= leftUpper->y;
+    if (horizontal) {
+        int wall = height / 2;
+        if ((wall % 2) == 0) {
+            wall--;
+        }
+        wall += leftUpper->y;
 
-        int door = (rand()%(width/2 + width%2))*2 + leftUpper->x;
-        for(int x = leftUpper->x; x <= rightLower->x; x++){
-            if(x != door){
+        int door = (rand() % (width / 2 + width % 2)) * 2 + leftUpper->x;
+        for (int x = leftUpper->x; x <= rightLower->x; x++) {
+            if (x != door) {
                 maze->setPosition(x, wall, true);
             }
         }
-        innerMazePart(maze, leftUpper, new Maze::Coordinate(rightLower->x, wall-1), false);
-        innerMazePart(maze, new Maze::Coordinate(leftUpper->x, wall+1), rightLower, false);
+        innerMazePart(maze, leftUpper, new Maze::Coordinate(rightLower->x, wall - 1), false);
+        innerMazePart(maze, new Maze::Coordinate(leftUpper->x, wall + 1), rightLower, false);
     } else {
-        int wall = width/2;
-        if((wall%2)==0){
+        int wall = width / 2;
+        if ((wall % 2) == 0) {
             wall--;
         }
-        wall+= leftUpper->x;
+        wall += leftUpper->x;
 
-        int door = (rand()%(height/2 + height%2))*2 + leftUpper->y;
-        for(int y = leftUpper->y; y <= rightLower->y; y++){
-            if(y != door){
+        int door = (rand() % (height / 2 + height % 2)) * 2 + leftUpper->y;
+        for (int y = leftUpper->y; y <= rightLower->y; y++) {
+            if (y != door) {
                 maze->setPosition(wall, y, true);
             }
         }
-        innerMazePart(maze, leftUpper, new Maze::Coordinate(wall-1, rightLower->y), true);
-        innerMazePart(maze, new Maze::Coordinate(wall+1, leftUpper->y), rightLower, true);
+        innerMazePart(maze, leftUpper, new Maze::Coordinate(wall - 1, rightLower->y), true);
+        innerMazePart(maze, new Maze::Coordinate(wall + 1, leftUpper->y), rightLower, true);
     }
 }
 
-Maze * getRandomMazeWithDivision(int length){
-    srand (time(NULL));
-    length = length*2 -1;
-    Maze * maze = new Maze(length, length);
-    innerMazePart(maze, new Maze::Coordinate(0,0), new Maze::Coordinate(length-1,length-1),true);
+Maze *getRandomMazeWithDivision(int length) {
+    srand(time(NULL));
+    length = length * 2 - 1;
+    Maze *maze = new Maze(length, length);
+    innerMazePart(maze, new Maze::Coordinate(0, 0), new Maze::Coordinate(length - 1, length - 1), true);
     return maze;
 }
