@@ -7,6 +7,8 @@
 
 using namespace std;
 
+static int drawPath(void *ptr);
+
 void Visualizer::visualize() {
     if (!init()) {
         printf("Error initializing Windows");
@@ -18,7 +20,7 @@ void Visualizer::visualize() {
     drawDoors();
     //Update the surface
     SDL_UpdateWindowSurface(gWindow);
-    drawPath();
+    pathThread = SDL_CreateThread(drawPath, "pathdrawing", this);
 
     //Main loop flag
     bool quit = false;
@@ -33,6 +35,7 @@ void Visualizer::visualize() {
             }
         }
     }
+
     close();
 }
 
@@ -77,6 +80,8 @@ void Visualizer::close() {
     //Destroy window
     SDL_DestroyWindow(gWindow);
     gWindow = NULL;
+
+    SDL_WaitThread(pathThread, NULL);
 
     //Quit SDL subsystems
     SDL_Quit();
@@ -129,21 +134,28 @@ void Visualizer::drawDoors() {
     SDL_FillRect(gScreenSurface, &rect, cDoor);
 }
 
-void Visualizer::drawPath() {
+static int drawPath(void *ptr) {
+    Visualizer *visualizer = (Visualizer *) ptr;
+
     SDL_Rect rect = *new SDL_Rect();
-    rect.h = ENTITY_SIZE;
-    rect.w = ENTITY_SIZE;
+    rect.h = visualizer->ENTITY_SIZE;
+    rect.w = visualizer->ENTITY_SIZE;
     Maze::Coordinate *coordinate;
-    for (list<Maze::Coordinate>::iterator iterator = coordinates->begin(), end = coordinates->end();
+    for (list<Maze::Coordinate>::iterator iterator =
+            visualizer->coordinates->begin(),
+                 end = visualizer->coordinates->end();
          iterator != end; ++iterator) {
         coordinate = &*iterator;
-        rect.x = coordinate->x * ENTITY_SIZE;
-        rect.y = coordinate->y * ENTITY_SIZE;
-        SDL_FillRect(gScreenSurface, &rect, cPath);
+        rect.x = coordinate->x * visualizer->ENTITY_SIZE;
+        rect.y = coordinate->y * visualizer->ENTITY_SIZE;
+        SDL_FillRect(visualizer->gScreenSurface, &rect, visualizer->cPath);
         SDL_Delay(200);
-        //Update the surface
-        SDL_UpdateWindowSurface(gWindow);
+        if (visualizer->gWindow != NULL) {
+            //Update the surface
+            SDL_UpdateWindowSurface(visualizer->gWindow);
+        } else {
+            break;
+        }
     }
-
-
+    return 0;
 }

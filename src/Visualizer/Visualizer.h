@@ -7,18 +7,20 @@
 
 //Using SDL and standard IO
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_thread.h>
 #include <stdio.h>
 #include <list>
 #include "../Structs/Structs.h"
 
 class Visualizer {
 
-private:
+public:
     //The window we'll be rendering to
     SDL_Window *gWindow = NULL;
 
     //The surface contained by the window
     SDL_Surface *gScreenSurface = NULL;
+    SDL_Thread *pathThread = NULL;
 
     Maze *maze;
     list<Maze::Coordinate> *coordinates;
@@ -49,11 +51,8 @@ private:
 
     void drawDoors();
 
-    void drawPath();
-
     void close();
 
-public:
     Visualizer(Maze *maze,
                list<Maze::Coordinate> *coordinates,
                Maze::Coordinate *start,
