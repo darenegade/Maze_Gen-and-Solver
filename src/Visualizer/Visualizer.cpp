@@ -67,10 +67,10 @@ bool Visualizer::init() {
         }
     }
 
-    cWall = SDL_MapRGBA(gScreenSurface->format, 153, 0, 0, 255);
-    cWay = SDL_MapRGBA(gScreenSurface->format, 224, 224, 224, 255);
-    cDoor = SDL_MapRGBA(gScreenSurface->format, 0, 0, 255, 255);
-    cPath = SDL_MapRGBA(gScreenSurface->format, 102, 255, 102, 255);
+    cWall = SDL_MapRGBA(gScreenSurface->format, 0, 0, 0, 255);
+    cWay = SDL_MapRGBA(gScreenSurface->format, 255, 255, 255, 255);
+    cDoor = SDL_MapRGBA(gScreenSurface->format, 255, 0, 255, 255);
+    cPath = SDL_MapRGBA(gScreenSurface->format, 20, 35, 240, 255);
 
     return success;
 }
