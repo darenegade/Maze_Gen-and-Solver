@@ -167,6 +167,7 @@ void innerMazePart(Maze * maze, Maze::Coordinate * leftUpper, Maze::Coordinate *
 }
 
 Maze * getRandomMazeWithDivision(int length){
+    srand (time(NULL));
     length = length*2 -1;
     Maze * maze = new Maze(length, length);
     innerMazePart(maze, new Maze::Coordinate(0,0), new Maze::Coordinate(length-1,length-1),true);
