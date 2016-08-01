@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_thread.h>
 #include <stdio.h>
+#include <math.h>
 #include <list>
 #include "../Structs/Structs.h"
 

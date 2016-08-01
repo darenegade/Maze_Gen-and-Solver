@@ -10,15 +10,9 @@ int main() {
     Maze::Coordinate *start;
     Maze::Coordinate *end;
 
-    Maze *m = getRandomMaze();
-    for (int i = 0; i < m->getWidth(); i++) {
-        if (!m->getPosition(i, 0)) {
-            start = new Maze::Coordinate(i, 0);
-        };
-        if (!m->getPosition(i, m->getHeight() - 1)) {
-            end = new Maze::Coordinate(i, m->getHeight() - 1);
-        };
-    }
+    Maze *m = getRandomMazeWithDivision(320);
+    start = new Maze::Coordinate(0, 0);
+    end = new Maze::Coordinate(m->getHeight()-1, m->getHeight()-1);
 
     Backtracker *bt = new Backtracker(m);
     list<Maze::Coordinate> way = bt->solve(start, end);
