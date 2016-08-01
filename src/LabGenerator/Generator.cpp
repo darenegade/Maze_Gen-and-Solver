@@ -126,3 +126,50 @@ Maze * getRandomMaze(){
     }
     return maze;
 }
+
+void innerMazePart(Maze * maze, Maze::Coordinate * leftUpper, Maze::Coordinate * rightLower, bool horizontal){
+    int height = rightLower->y - leftUpper->y;
+    int width = rightLower->x - leftUpper->x;
+    if(height <= 1 || width <= 1){
+        return;
+    }
+    if(horizontal){
+        int wall = height/2;
+        if((wall%2)==0){
+            wall--;
+        }
+        wall+= leftUpper->y;
+
+        int door = (rand()%(width/2 + width%2))*2 + leftUpper->x;
+        for(int x = leftUpper->x; x <= rightLower->x; x++){
+            if(x != door){
+                maze->setPosition(x, wall, true);
+            }
+        }
+        innerMazePart(maze, leftUpper, new Maze::Coordinate(rightLower->x, wall-1), false);
+        innerMazePart(maze, new Maze::Coordinate(leftUpper->x, wall+1), rightLower, false);
+    } else {
+        int wall = width/2;
+        if((wall%2)==0){
+            wall--;
+        }
+        wall+= leftUpper->x;
+
+        int door = (rand()%(height/2 + height%2))*2 + leftUpper->y;
+        for(int y = leftUpper->y; y <= rightLower->y; y++){
+            if(y != door){
+                maze->setPosition(wall, y, true);
+            }
+        }
+        innerMazePart(maze, leftUpper, new Maze::Coordinate(wall-1, rightLower->y), true);
+        innerMazePart(maze, new Maze::Coordinate(wall+1, leftUpper->y), rightLower, true);
+    }
+}
+
+Maze * getRandomMazeWithDivision(int length){
+    srand (time(NULL));
+    length = length*2 -1;
+    Maze * maze = new Maze(length, length);
+    innerMazePart(maze, new Maze::Coordinate(0,0), new Maze::Coordinate(length-1,length-1),true);
+    return maze;
+}
