@@ -7,17 +7,9 @@
 #endif /* main */
 
 int main() {
-    Maze::Coordinate *start;
-    Maze::Coordinate *end;
-
     Maze *m = getRandomMazeWithDivision(300);
-    start = new Maze::Coordinate(0, 0);
-    end = new Maze::Coordinate(m->getHeight()-1, m->getHeight()-1);
 
-    Backtracker *bt = new Backtracker(m);
-    list<Maze::Coordinate> way = bt->solve(start, end);
-
-    Visualizer visualizer = *new Visualizer(m, &way, start, end);
+    Visualizer visualizer = *new Visualizer(m);
     visualizer.visualize();
 
 

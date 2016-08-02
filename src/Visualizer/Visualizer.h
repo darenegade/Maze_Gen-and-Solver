@@ -12,21 +12,23 @@
 #include <math.h>
 #include <list>
 #include "../Structs/Structs.h"
+#include "../Algorithm/Backtracker.h"
 
 class Visualizer {
 
 public:
+    SDL_mutex *mtx = SDL_CreateMutex();
+
     //The window we'll be rendering to
     SDL_Window *gWindow = NULL;
 
     //The surface contained by the window
     SDL_Surface *gScreenSurface = NULL;
-    SDL_Thread *pathThread = NULL;
+    SDL_Thread *topRightThread = NULL;
+    SDL_Thread *bottomLeftThread = NULL;
+    SDL_Thread *bottomRightThread = NULL;
 
     Maze *maze;
-    list<Maze::Coordinate> *coordinates;
-    Maze::Coordinate *start;
-    Maze::Coordinate *end;
 
     //Screen dimension and position constants
     int SCREEN_SIZE = 640;
@@ -39,10 +41,6 @@ public:
     Uint32 cWall;
     // Color of free paths
     Uint32 cWay;
-    // Color of entry and exit
-    Uint32 cDoor;
-    // Color of the calculated path
-    Uint32 cPath;
 
     bool init();
 
@@ -50,14 +48,9 @@ public:
 
     void drawWays();
 
-    void drawDoors();
-
     void close();
 
-    Visualizer(Maze *maze,
-               list<Maze::Coordinate> *coordinates,
-               Maze::Coordinate *start,
-               Maze::Coordinate *end) : maze(maze), coordinates(coordinates), start(start), end(end) {
+    Visualizer(Maze *maze) : maze(maze) {
         ENTITY_SIZE = SCREEN_SIZE / max(maze->getHeight(), maze->getWidth());
     };
 
