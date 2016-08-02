@@ -194,6 +194,7 @@ void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *ri
 /**
  * Returns a randomly generated maze using the recursive division-algorithm.
  * For better results even numbers for width and height will be reduced by 1.
+ * Walls will be dividing in half. Gaps will be random.
  *
  * @param width wanted width of the maze
  * @param height wanted height of the maze
@@ -216,6 +217,7 @@ Maze *getRandomMazeWithDivision(int width, int height) {
 /**
  * Returns a randomly generated maze using the recursive division-algorithm.
  * For better results even numbers for width and height will be reduced by 1.
+ * Walls and gaps will be random;
  *
  * @param width wanted width of the maze
  * @param height wanted height of the maze
