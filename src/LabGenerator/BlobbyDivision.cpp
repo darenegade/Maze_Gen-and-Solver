@@ -80,6 +80,14 @@ Maze BlobbyDivision::generate(unsigned int n) {
 
     generate(region, maze);
 
+    for (int y = 0; y < n; y++) {
+        for (int x = 0; x < n; x++) {
+            result->setPosition(x*2+1,y*2,maze->at(x).at(y).rightWall);
+            result->setPosition(x*2,y*2+1,maze->at(x).at(y).downWall);
+            result->setPosition(x*2+1,y*2+1,true);
+        }
+    }
+
     return *result;
 }
 
