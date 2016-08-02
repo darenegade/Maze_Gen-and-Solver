@@ -4,16 +4,6 @@
 
 #include "Backtracker.h"
 
-/**
- * Solves the maze.
- *
- * Looks for an empty neighbor next to the last coordinate in path, appends it to the path and sets the maze to true at that position.
- * When a dead end is reached elements are dropped from the end of path, until an alternate route is available.
- *
- * @param end coordinates of the target
- * @param path walked so far
- * @return true, if the end has been reached, false if a dead end was reached.
- */
 bool Backtracker::solve(const Maze::Coordinate *end, list<Maze::Coordinate> *path) {
 
     // find next empty tile
@@ -37,13 +27,6 @@ bool Backtracker::solve(const Maze::Coordinate *end, list<Maze::Coordinate> *pat
     return false;
 }
 
-/**
- * Solves a maze using the backtrack-algorithm.
- *
- * @param start coordinates of the start
- * @param end coordinates of the target
- * @return a list of coordinates leading from start to end, if there is a solution. empty list for an impossible maze.
- */
 list<Maze::Coordinate> Backtracker::solve(Maze::Coordinate *start, Maze::Coordinate *end) {
     list<Maze::Coordinate> *path = new list<Maze::Coordinate>{1, *start};
 
@@ -58,14 +41,6 @@ list<Maze::Coordinate> Backtracker::solve(Maze::Coordinate *start, Maze::Coordin
     }
 }
 
-/**
- * Returns the coordinates of an empty neighbor of the given coordinate. nullptr otherwise.
- * Right > Down > Left > Up
- * This method uses maze, not original.
- *
- * @param current base coordinate
- * @return empty neighbor of the givn coordinate nullptr otherwise.
- */
 Maze::Coordinate* Backtracker::getNextEmptyNeighbour(const Maze::Coordinate *current){
     // right
     Maze::Coordinate *next = new Maze::Coordinate(current->x+1, current->y);
