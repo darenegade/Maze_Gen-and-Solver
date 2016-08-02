@@ -9,15 +9,15 @@ int main() {
     Maze::Coordinate *start;
     Maze::Coordinate *end;
 
-    Maze *m = getRandomMazeWithDivision(15);
+    Maze *m = getRandomMazeWithDivision(110,30);
 
     start = new Maze::Coordinate(0, 0);
-    end = new Maze::Coordinate(m->getHeight()-1, m->getHeight()-1);
+    end = new Maze::Coordinate(m->getWidth()-1, m->getHeight()-1);
 
     Backtracker *bt = new Backtracker(m);
     list<Maze::Coordinate> way = bt->solve(start, end);
 
-    Maze *pathMaze = new Maze(m->getWidth(), m->getHeight());
+    Maze *pathMaze = new Maze(m->getHeight(), m->getWidth());
     for (list<Maze::Coordinate>::iterator iterator =
             way.begin(),
                  end = way.end();
