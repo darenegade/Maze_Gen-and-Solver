@@ -5,7 +5,7 @@
 #ifndef GRP04_ALGDATII_BLOBBYDIVISION_H
 #define GRP04_ALGDATII_BLOBBYDIVISION_H
 
-#include <set>
+#include <list>
 #include "../Structs/Structs.h"
 
 class BlobbyDivision {
@@ -18,22 +18,19 @@ private:
 
         int x,y;
         int state = UNSET;
-        bool rightWall, downWall;
+        bool rightWall = false, downWall = false;
         Cell(int x, int y){
             this->x = x;
             this->y = y;
         }
     };
 
-    void generate(set<Cell*> *region, vector<vector<Cell>> *maze);
-    set<Cell*> getFreeNeighbours(Cell* cell, set<Cell*> *region, vector<vector<Cell>> *maze);
-    void setWalls(set<Cell*> *a,set<Cell*> *b, vector<vector<Cell>> *maze);
-
-    template<typename Iter>
-    Iter select_randomly(Iter start, Iter end);
+    static void generate(list<Cell*> *region, vector<vector<Cell>> *maze);
+    static list<Cell*>* getFreeNeighbours(Cell* cell, list<Cell*> *region, vector<vector<Cell>> *maze);
+    static void setWalls(list<Cell*> *a,list<Cell*> *b, vector<vector<Cell>> *maze);
 
 public:
-    Maze generate(unsigned int n);
+    static Maze* generate(unsigned int n);
 
 };
 

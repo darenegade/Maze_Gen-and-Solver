@@ -1,5 +1,6 @@
 #include "Visualizer/Visualizer.h"
 #include "LabGenerator/Generator.cpp"
+#include "LabGenerator/BlobbyDivision.cpp"
 #include "Algorithm/Backtracker.h"
 
 #ifdef main
@@ -7,26 +8,14 @@
 #endif /* main */
 
 int main() {
-    list<Maze::Coordinate> way = {};
-    Maze::Coordinate *start;
-    Maze::Coordinate *end;
-    Maze *m = getRandomMaze();
-    Backtracker *bt;
-    while (way.empty()) {
-        delete end, start, m, way, bt;
-        m = getRandomMaze();
 
-        for (int i = 0; i < m->getWidth(); i++) {
-            if (!m->getPosition(i, 0)) {
-                start = new Maze::Coordinate(i, 0);
-            };
-            if (!m->getPosition(i, m->getHeight() - 1)) {
-                end = new Maze::Coordinate(i, m->getHeight() - 1);
-            };
-        }
-        bt = new Backtracker(m);
-        way = bt->solve(start, end);
-    }
+    Maze::Coordinate *start = new Maze::Coordinate(0,0);
+    Maze* m = BlobbyDivision::generate(4);
+    Maze::Coordinate *end = new Maze::Coordinate(m->getWidth()-2,m->getHeight()-2);
+    Backtracker *bt = new Backtracker(m);
+    list<Maze::Coordinate> way = bt->solve(start, end);
+
+
     Visualizer visualizer = *new Visualizer(m, &way, start, end);
     visualizer.visualize();
 

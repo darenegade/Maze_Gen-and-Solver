@@ -4,58 +4,64 @@
 
 #include <cstdlib>
 #include <random>
+#include <iostream>
 #include "BlobbyDivision.h"
 
-void BlobbyDivision::generate(set<Cell *> *region, vector<vector<Cell>> *maze) {
+void BlobbyDivision::generate(list<Cell*> *region, vector<vector<Cell>> *maze) {
+
+    cout << "new recursion step"<< endl;
 
     if (region->size() > 3) {
 
         //Prepare DataStructure
-        set<Cell *> *a = new set();
-        set<Cell *> *b = new set();
+        list<Cell*> *a = new list<Cell*>();
+        list<Cell*> *b = new list<Cell*>();
+        list<Cell*> *sA = new list<Cell*>();
+        list<Cell*> *sB = new list<Cell*>();
 
         //Select 2  seeds
-        Cell *seed_a = *select_randomly(region->begin(), region->end());
+        //Cell *seed_a = *select_randomly(region->begin(), region->end());
+        Cell *seed_a = *region->begin();
         seed_a->state = Cell::A;
-        a->insert(seed_a);
-        region->erase(seed_a);
+        a->push_back(seed_a);
+        sA->push_back(seed_a);
+        region->remove(seed_a);
 
-        Cell *seed_b = *select_randomly(region->begin(), region->end());
+        //Cell *seed_b = *select_randomly(region->begin(), region->end());
+        Cell *seed_b = *region->begin();
         seed_b->state = Cell::B;
-        b->insert(seed_b);
-        region->erase(seed_b);
+        b->push_back(seed_b);
+        sB->push_back(seed_b);
+        region->remove(seed_b);
 
         bool isB = false;
-        set<Cell *> *currentSet;
+        list<Cell*> *currentSet;
         while (region->size() > 0) {
 
             if (isB) {
-                currentSet = b;
+                currentSet = sB;
             } else {
-                currentSet = a;
+                currentSet = sA;
             }
 
             //Get Random next seed
-            Cell *current = *select_randomly(currentSet->begin(), currentSet->end());
+            //Cell *current = *select_randomly(currentSet->begin(), currentSet->end());
+            Cell *current = *currentSet->begin();
 
             //find free neighbours and grow
-            set<Cell *> neighbours = getFreeNeighbours(current, region, maze);
+            list<Cell*> *neighbours = getFreeNeighbours(current, region, maze);
 
-            for (set<Cell *>::iterator it = neighbours.begin(); it != neighbours.end(); it++) {
-                Cell *c = *it;
-                c->state = (isB) ? Cell::B : Cell::A;
+            for (list<Cell*>::iterator it = neighbours->begin(); it != neighbours->end(); it++) {
+                (*it)->state = (isB) ? Cell::B : Cell::A;
             }
 
-            currentSet->insert(neighbours.begin(), neighbours.end());
-            region->erase(neighbours.begin(), neighbours.end());
+            currentSet->insert(currentSet->end(), neighbours->begin(), neighbours->end());
+            region->erase(neighbours->begin(), neighbours->end());
 
-            delete neighbours, current;
             isB = !isB;
         }
 
         setWalls(a, b, maze);
-
-        delete region;
 
         generate(a, maze);
         generate(b, maze);
@@ -63,69 +69,90 @@ void BlobbyDivision::generate(set<Cell *> *region, vector<vector<Cell>> *maze) {
 
 }
 
-Maze BlobbyDivision::generate(unsigned int n) {
-    int size = 2 * n - 1;
+Maze *BlobbyDivision::generate(unsigned int n) {
+    int size = 2 * n;
     Maze *result = new Maze(size, size);
-    vector<vector<Cell>> *maze = new vector(n, vector(n));
-    set<Cell *> *region = new set();
+    vector<vector<Cell>> *maze = new vector<vector<Cell>>(n, vector<Cell>());
+    list<Cell*> *region = new list<Cell*>();
 
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            Cell cell(i, j);
-
-            region->insert(&cell);
-            maze->at(i).at(j) = cell;
+    for (int y = 0; y < n; y++) {
+        for (int x = 0; x < n; x++) {
+            maze->at(y).push_back(Cell(x, y));
         }
+    }
+
+    region->push_back(&(maze->at(0).at(0)));
+
+    for (int y = 0; y < n; y++) {
+        for (int x = 0; x < n; x++) {
+            region->push_back(&maze->at(y).at(x));
+
+            cout <<x << " " << y << " | ";
+        }
+        cout<<endl;
     }
 
     generate(region, maze);
 
+    cout << "Generation finished!" << endl;
+
     for (int y = 0; y < n; y++) {
         for (int x = 0; x < n; x++) {
-            result->setPosition(x*2+1,y*2,maze->at(x).at(y).rightWall);
-            result->setPosition(x*2,y*2+1,maze->at(x).at(y).downWall);
-            result->setPosition(x*2+1,y*2+1,true);
+            result->setPosition(x * 2 + 1, y * 2, maze->at(x).at(y).rightWall);
+            result->setPosition(x * 2, y * 2 + 1, maze->at(x).at(y).downWall);
+            result->setPosition(x * 2 + 1, y * 2 + 1, true);
         }
     }
 
-    return *result;
+    return result;
 }
 
-set<Cell *> BlobbyDivision::getFreeNeighbours(BlobbyDivision::Cell *cell, set<Cell *> *region,
-                                              vector<vector<BlobbyDivision::Cell>> *maze) {
+list<BlobbyDivision::Cell*>* BlobbyDivision::getFreeNeighbours(BlobbyDivision::Cell *cell, list<Cell*> *region,
+                                                              vector<vector<BlobbyDivision::Cell>> *maze) {
 
-    set<Cell *> neighbours = set<BlobbyDivision::Cell *>();
-    Cell next = maze->at(cell->y).at(cell->x + 1);
-    if (next.state == Cell::UNSET && region->find(&next) != region->end()) {
-        neighbours.insert(cell);
-    }
-    next = maze->at(cell->y + 1).at(cell->x);
-    if (next.state == Cell::UNSET && region->find(&next) != region->end()) {
-        neighbours.insert(cell);
-    }
-    next = maze->at(cell->y).at(cell->x - 1);
-    if (next.state == Cell::UNSET && region->find(&next) != region->end()) {
-        neighbours.insert(cell);
-    }
-    next = maze->at(cell->y - 1).at(cell->x);
-    if (next.state == Cell::UNSET && region->find(&next) != region->end()) {
-        neighbours.insert(cell);
+    list<BlobbyDivision::Cell*> *neighbours = new list<BlobbyDivision::Cell*>();
+    Cell *next = cell;
+    if ((cell->x + 1) < maze->at(0).size()) {
+        next = &maze->at(cell->y).at(cell->x + 1);
+        if (next->state == Cell::UNSET && std::find(region->begin(), region->end(), next) != region->end()) {
+            neighbours->push_back(next);
+        }
     }
 
+    if ((cell->y + 1) < maze->size()) {
+        next = &maze->at(cell->y + 1).at(cell->x);
+        if (next->state == Cell::UNSET && std::find(region->begin(), region->end(), next) != region->end()) {
+            neighbours->push_back(next);
+        }
+    }
+
+    if ((cell->x - 1) >= 0) {
+        next = &maze->at(cell->y).at(cell->x - 1);
+        if (next->state == Cell::UNSET && std::find(region->begin(), region->end(), next) != region->end()) {
+            neighbours->push_back(next);
+        }
+    }
+
+    if ((cell->y - 1) >= 0) {
+        next = &maze->at(cell->y - 1).at(cell->x);
+        if (next->state == Cell::UNSET && std::find(region->begin(), region->end(), next) != region->end()) {
+            neighbours->push_back(next);
+        }
+    }
     return neighbours;
 }
 
-void BlobbyDivision::setWalls(set<Cell *> *a, set<Cell *> *b,
+void BlobbyDivision::setWalls(list<Cell*> *a, list<Cell*> *b,
                               vector<vector<BlobbyDivision::Cell>> *maze) {
 
     Cell *lastCell = nullptr;
     bool isDown = false;
 
-    for (set<Cell *>::iterator it = a->begin(); it != a->end(); it++) {
+    for (list<Cell*>::iterator it = a->begin(); it != a->end(); it++) {
         Cell *current = *it;
         Cell next = maze->at(current->y).at(current->x + 1);
 
-        if (b->find(&next) != b->end()) {
+        if (std::find(b->begin(), b->end(), &next) != b->end()) {
             current->rightWall = true;
             lastCell = current;
             isDown = false;
@@ -133,18 +160,18 @@ void BlobbyDivision::setWalls(set<Cell *> *a, set<Cell *> *b,
 
         next = maze->at(current->y + 1).at(current->x);
 
-        if (b->find(&next) != b->end()) {
+        if (std::find(b->begin(), b->end(), &next) != b->end()) {
             current->downWall = true;
             lastCell = current;
             isDown = true;
         }
     }
 
-    for (set<Cell *>::iterator it = b->begin(); it != b->end(); it++) {
+    for (list<Cell*>::iterator it = b->begin(); it != b->end(); it++) {
         Cell *current = *it;
         Cell next = maze->at(current->y).at(current->x + 1);
 
-        if (a->find(&next) != a->end()) {
+        if (std::find(a->begin(), a->end(), &next) != a->end()) {
             current->rightWall = true;
             lastCell = current;
             isDown = false;
@@ -152,7 +179,7 @@ void BlobbyDivision::setWalls(set<Cell *> *a, set<Cell *> *b,
 
         next = maze->at(current->y + 1).at(current->x);
 
-        if (a->find(&next) != a->end()) {
+        if (std::find(a->begin(), a->end(), &next) != a->end()) {
             current->downWall = true;
             lastCell = current;
             isDown = true;
@@ -166,15 +193,4 @@ void BlobbyDivision::setWalls(set<Cell *> *a, set<Cell *> *b,
         }
     }
 
-}
-
-template<typename Iter>
-Iter BlobbyDivision::select_randomly(Iter start, Iter end) {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-
-    std::uniform_int_distribution<> dis(0, (int) (std::distance(start, end) - 1));
-    std::advance(start, dis(gen));
-
-    return start;
 }
