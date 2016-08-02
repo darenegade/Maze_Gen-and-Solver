@@ -143,7 +143,7 @@ Maze *getRandomMaze() {
 void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *rightLower) {
     int height = rightLower->y - leftUpper->y;
     int width = rightLower->x - leftUpper->x;
-    if (height <= 2 || width <= 2) {
+    if (height <= 1 || width <= 1) {
         return;
     }
     bool horizontal = height>width;
