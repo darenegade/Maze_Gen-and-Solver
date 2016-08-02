@@ -12,8 +12,12 @@ class BlobbyDivision {
 
 private:
     struct Cell {
+        const static int UNSET = 0;
+        const static int A = 1;
+        const static int B = 2;
 
         int x,y;
+        int state = UNSET;
         bool rightWall, downWall;
         Cell(int x, int y){
             this->x = x;
@@ -23,6 +27,7 @@ private:
 
     void generate(set<Cell*> *region, vector<vector<Cell>> *maze);
     set<Cell*> getFreeNeighbours(Cell* cell, set<Cell*> *region, vector<vector<Cell>> *maze);
+    void setWalls(set<Cell*> *a,set<Cell*> *b, vector<vector<Cell>> *maze);
 
     template<typename Iter>
     Iter select_randomly(Iter start, Iter end);
