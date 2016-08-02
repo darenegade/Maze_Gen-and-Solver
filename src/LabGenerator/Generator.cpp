@@ -12,7 +12,7 @@ static const int HEIGHT = 100;
 static const int WIDTH = 100;
 
 /**
- * Returns the static default Maze for an example
+ * Returns the static default maze for an example.
  * @return default maze
  */
 static Maze *getDefaultLabyrinth() {
@@ -39,7 +39,7 @@ static Maze *getDefaultLabyrinth() {
 }
 
 /**
- * Returns the static Maze where the edges are walls except for a start end point.
+ * Returns the static maze in which the edges are walls except for the start end point.
  * @return empty maze
  */
 Maze *getMazeWithWalls() {
@@ -60,7 +60,7 @@ Maze *getMazeWithWalls() {
 }
 
 /**
- * Returns a complete random maze. There will be a solution to the maze
+ * Returns a complete random maze. There will be a solution to the maze.
  * @return random maze
  */
 Maze *getRandomMaze() {
@@ -128,17 +128,17 @@ Maze *getRandomMaze() {
 }
 
 /**
- * Adds a wall with a gap into the maze.
- * The wall will divide the given rectangle defined by leftUpper and rightLower (including boh points).
- * If the rectangles height is bigger than its width, it will be divided horizontally, otherwise vertically.
- * After inserting the wall this method will be recursively called with both sub-rectangles.
- * The Method returns if width or height are 2 or smaller.
+ * Inserts a wall with a gap into the maze.
+ * The wall will divide the given rectangle defined by leftUpper and rightLower (including both points).
+ * If the rectangles height is bigger than it´s width, it will be divided horizontally, otherwise vertically.
+ * After inserting the wall this method will be recursively called with both inner rectangles.
+ * The Method returns if width or height is 2 or smaller.
  *
  * The rectangle is expected to be of odd width and hight for best results.
  *
- * @param maze the maze to insert th walls into
- * @param leftUpper coordinate of the left-upper tile of the rectangle to alter
- * @param rightLower coordinate of the right-lower tile of the rectangle to alter
+ * @param maze the maze in which the wall shall be inserted
+ * @param leftUpper the left upper coordinate of the rectangle to alter
+ * @param rightLower the right lower coordinate of the rectangle to alter
  */
 void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *rightLower) {
     int height = rightLower->y - leftUpper->y;
@@ -176,12 +176,12 @@ void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *ri
 }
 
 /**
- * Returns a randomly generated maze using the division-algorithm.
+ * Returns a randomly generated maze using the recursive division-algorithm.
  * For better results even numbers for width and height will be reduced by 1.
  *
- * @param width wanted height of the maze
- * @param height wanted width of the maze
- * @return the generaed maze
+ * @param width wanted width of the maze
+ * @param height wanted height of the maze
+ * @return the generated maze
  */
 Maze *getRandomMazeWithDivision(int width, int height) {
     srand(time(NULL));
