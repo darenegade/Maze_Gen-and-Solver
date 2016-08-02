@@ -7,8 +7,6 @@
 
 using namespace std;
 
-static int drawPath(void *ptr);
-
 void Visualizer::visualize() {
     if (!init()) {
         printf("Error initializing Windows");
@@ -17,7 +15,6 @@ void Visualizer::visualize() {
 
     drawWalls();
     drawWays();
-    //Update the surface
     SDL_UpdateWindowSurface(gWindow);
 
     topRightThread = SDL_CreateThread(drawPath, "pathTopRight", this);
@@ -125,7 +122,7 @@ void Visualizer::drawWalls() {
     }
 }
 
-static int drawPath(void *ptr) {
+int Visualizer::drawPath(void *ptr) {
     Visualizer *visualizer = (Visualizer *) ptr;
 
     Maze::Coordinate *start = new Maze::Coordinate(0, 0);
@@ -155,6 +152,8 @@ static int drawPath(void *ptr) {
     rect.h = visualizer->ENTITY_SIZE;
     rect.w = visualizer->ENTITY_SIZE;
     Maze::Coordinate *coordinate;
+
+    Uint32 delay = (Uint32) (2000 / sqrt(visualizer->maze->getHeight() * visualizer->maze->getWidth()));
     for (list<Maze::Coordinate>::iterator iterator =
             way.begin(),
                  end = way.end();
@@ -173,7 +172,7 @@ static int drawPath(void *ptr) {
             SDL_UnlockMutex(visualizer->mtx);
             break;
         }
-        SDL_Delay(2000 / sqrt(visualizer->maze->getHeight() * visualizer->maze->getWidth()));
+        SDL_Delay(delay);
     }
 
     delete bt, way, start, endPos, cPath, coordinate, rect;
