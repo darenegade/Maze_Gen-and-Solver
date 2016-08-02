@@ -10,7 +10,8 @@ int main() {
     Maze::Coordinate *start;
     Maze::Coordinate *end;
 
-    Maze *m = getRandomMazeWithDivision(300);
+    Maze *m = getRandomMazeWithDivision(15);
+
     start = new Maze::Coordinate(0, 0);
     end = new Maze::Coordinate(m->getHeight()-1, m->getHeight()-1);
 
@@ -19,7 +20,6 @@ int main() {
 
     Visualizer visualizer = *new Visualizer(m, &way, start, end);
     visualizer.visualize();
-
 
     return 0;
 }
