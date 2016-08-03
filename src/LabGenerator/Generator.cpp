@@ -12,7 +12,7 @@ static const int HEIGHT = 100;
 static const int WIDTH = 100;
 
 /**
- * Returns the static default Maze for an example
+ * Returns the static default maze for an example.
  * @return default maze
  */
 static Maze *getDefaultLabyrinth() {
@@ -39,7 +39,7 @@ static Maze *getDefaultLabyrinth() {
 }
 
 /**
- * Returns the static Maze where the edges are walls except for a start end point.
+ * Returns the static maze in which the edges are walls except for the start end point.
  * @return empty maze
  */
 Maze *getMazeWithWalls() {
@@ -60,7 +60,7 @@ Maze *getMazeWithWalls() {
 }
 
 /**
- * Returns a complete random maze. There will be a solution to the maze
+ * Returns a complete random maze. There will be a solution to the maze.
  * @return random maze
  */
 Maze *getRandomMaze() {
@@ -127,16 +127,36 @@ Maze *getRandomMaze() {
     return maze;
 }
 
-void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *rightLower, bool horizontal) {
+/**
+ * Inserts a wall with a gap into the maze.
+ * The wall will divide the given rectangle defined by leftUpper and rightLower (including both points).
+ * If the rectangles height is bigger than it´s width, it will be divided horizontally, otherwise vertically.
+ * After inserting the wall this method will be recursively called with both inner rectangles.
+ * The Method returns if width or height is 2 or smaller.
+ *
+ * The rectangle is expected to be of odd width and hight for best results.
+ *
+ * @param maze the maze in which the wall shall be inserted
+ * @param leftUpper the left upper coordinate of the rectangle to alter
+ * @param rightLower the right lower coordinate of the rectangle to alter
+ */
+void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *rightLower, bool randomWalls) {
     int height = rightLower->y - leftUpper->y;
     int width = rightLower->x - leftUpper->x;
     if (height <= 1 || width <= 1) {
         return;
     }
+    bool horizontal = height>width;
+
     if (horizontal) {
-        int wall = height / 2;
-        if ((wall % 2) == 0) {
-            wall--;
+        int wall;
+        if(randomWalls) {
+            wall = (rand() % (height / 2)) * 2 + 1;
+        } else {
+            wall = height/2;
+            if(wall%2==0){
+                wall--;
+            }
         }
         wall += leftUpper->y;
 
@@ -146,12 +166,17 @@ void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *ri
                 maze->setPosition(x, wall, true);
             }
         }
-        innerMazePart(maze, leftUpper, new Maze::Coordinate(rightLower->x, wall - 1), false);
-        innerMazePart(maze, new Maze::Coordinate(leftUpper->x, wall + 1), rightLower, false);
+        innerMazePart(maze, leftUpper, new Maze::Coordinate(rightLower->x, wall - 1), randomWalls);
+        innerMazePart(maze, new Maze::Coordinate(leftUpper->x, wall + 1), rightLower, randomWalls);
     } else {
-        int wall = width / 2;
-        if ((wall % 2) == 0) {
-            wall--;
+        int wall;
+        if(randomWalls) {
+            wall = (rand() % (width / 2)) * 2 + 1;
+        } else {
+            wall = width/2;
+            if(wall%2==0){
+                wall--;
+            }
         }
         wall += leftUpper->x;
 
@@ -161,15 +186,53 @@ void innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *ri
                 maze->setPosition(wall, y, true);
             }
         }
-        innerMazePart(maze, leftUpper, new Maze::Coordinate(wall - 1, rightLower->y), true);
-        innerMazePart(maze, new Maze::Coordinate(wall + 1, leftUpper->y), rightLower, true);
+        innerMazePart(maze, leftUpper, new Maze::Coordinate(wall - 1, rightLower->y), randomWalls);
+        innerMazePart(maze, new Maze::Coordinate(wall + 1, leftUpper->y), rightLower, randomWalls);
     }
 }
 
-Maze *getRandomMazeWithDivision(int length) {
+/**
+ * Returns a randomly generated maze using the recursive division-algorithm.
+ * For better results even numbers for width and height will be reduced by 1.
+ * Walls will be dividing in half. Gaps will be random.
+ *
+ * @param width wanted width of the maze
+ * @param height wanted height of the maze
+ * @return the generated maze
+ */
+Maze *getRandomMazeWithDivision(int width, int height) {
     srand(time(NULL));
-    length = length * 2 - 1;
-    Maze *maze = new Maze(length, length);
-    innerMazePart(maze, new Maze::Coordinate(0, 0), new Maze::Coordinate(length - 1, length - 1), true);
+    if(width%2==0){
+        width--;
+    }
+    if(height%2==0){
+        height--;
+    }
+
+    Maze *maze = new Maze(height, width);
+    innerMazePart(maze, new Maze::Coordinate(0, 0), new Maze::Coordinate(width - 1, height - 1), false);
+    return maze;
+}
+
+/**
+ * Returns a randomly generated maze using the recursive division-algorithm.
+ * For better results even numbers for width and height will be reduced by 1.
+ * Walls and gaps will be random;
+ *
+ * @param width wanted width of the maze
+ * @param height wanted height of the maze
+ * @return the generated maze
+ */
+Maze *getRandomWallsMazeWithDivision(int width, int height) {
+    srand(time(NULL));
+    if(width%2==0){
+        width--;
+    }
+    if(height%2==0){
+        height--;
+    }
+
+    Maze *maze = new Maze(height, width);
+    innerMazePart(maze, new Maze::Coordinate(0, 0), new Maze::Coordinate(width - 1, height - 1), true);
     return maze;
 }
