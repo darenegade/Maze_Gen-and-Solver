@@ -17,7 +17,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-set(SDL2_LIBRARY C:/Users/peter-mueller/Documents/hm-ss16/algdat2/grp04-algdatII/lib/SDL2.dll)
+#set(SDL2_LIBRARY C:/Users/peter-mueller/Documents/hm-ss16/algdat2/grp04-algdatII/lib/SDL2.dll)
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/src

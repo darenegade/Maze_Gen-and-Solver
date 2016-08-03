@@ -6,8 +6,8 @@
 #define GRP04_ALGDATII_VISUALIZER_H
 
 //Using SDL and standard IO
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_thread.h>
+#include <SDL.h>
+#include <SDL_thread.h>
 #include <stdio.h>
 #include <math.h>
 #include <list>
