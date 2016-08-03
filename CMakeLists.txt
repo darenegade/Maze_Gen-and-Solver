@@ -11,6 +11,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 endif()
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR})
+
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/src
@@ -31,7 +35,7 @@ target_link_libraries(
         grp04-algdatII
         visualizer
         Algorithm
-        C:/Users/peter-mueller/Documents/hm-ss16/algdat2/grp04-algdatII/lib/SDL2.dll
+        ${SDL2_LIBRARY}
 )
 
 
