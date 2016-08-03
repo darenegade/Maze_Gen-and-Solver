@@ -1,5 +1,6 @@
 #include "Visualizer/Visualizer.h"
 #include "LabGenerator/Generator.cpp"
+#include "LabGenerator/BlobbyDivision.cpp"
 #include "Algorithm/Backtracker.h"
 
 #ifdef main
@@ -11,10 +12,13 @@ int main() {
     //Maze *m = getRandomMaze();
 
     // Generate maze with recursive division
-    Maze *m = getRandomMazeWithDivision(50,50);
+    //Maze *m = getRandomMazeWithDivision(50,50);
 
     // Generate maze with recursive division and random wall placement
     //Maze *m = getRandomWallsMazeWithDivision(50,50);
+
+    // Generate maze with recursive division
+    Maze *m = BlobbyDivision::generate(50);
 
 
     Visualizer visualizer = *new Visualizer(m);
