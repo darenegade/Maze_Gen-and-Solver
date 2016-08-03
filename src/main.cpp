@@ -10,8 +10,8 @@
 int main() {
 
     Maze::Coordinate *start = new Maze::Coordinate(0,0);
-    Maze* m = BlobbyDivision::generate(4);
-    Maze::Coordinate *end = new Maze::Coordinate(m->getWidth()-2,m->getHeight()-2);
+    Maze* m = BlobbyDivision::generate(100);
+    Maze::Coordinate *end = new Maze::Coordinate(m->getWidth()-1,m->getHeight()-1);
     Backtracker *bt = new Backtracker(m);
     list<Maze::Coordinate> way = bt->solve(start, end);
 
