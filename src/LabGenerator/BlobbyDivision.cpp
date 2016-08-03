@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <random>
 #include <iostream>
+#include <time.h>
 #include "BlobbyDivision.h"
 
 void BlobbyDivision::generate(list<Cell *> *region, vector<vector<Cell>> *maze) {
