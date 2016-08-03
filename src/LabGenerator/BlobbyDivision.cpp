@@ -20,15 +20,19 @@ void BlobbyDivision::generate(list<Cell*> *region, vector<vector<Cell>> *maze) {
         list<Cell*> *sB = new list<Cell*>();
 
         //Select 2  seeds
-        //Cell *seed_a = *select_randomly(region->begin(), region->end());
-        Cell *seed_a = *region->begin();
+        int n = (int) (rand() % region->size());
+        std::list<Cell*>::iterator it = region->begin();
+        std::advance(it,n);
+        Cell *seed_a = *it;
         seed_a->state = Cell::A;
         a->push_back(seed_a);
         sA->push_back(seed_a);
         region->remove(seed_a);
 
-        //Cell *seed_b = *select_randomly(region->begin(), region->end());
-        Cell *seed_b = *region->begin();
+        n = (int) (rand() % region->size());
+        it = region->begin();
+        std::advance(it,n);
+        Cell *seed_b = *it;
         seed_b->state = Cell::B;
         b->push_back(seed_b);
         sB->push_back(seed_b);
@@ -45,23 +49,43 @@ void BlobbyDivision::generate(list<Cell*> *region, vector<vector<Cell>> *maze) {
             }
 
             //Get Random next seed
-            //Cell *current = *select_randomly(currentSet->begin(), currentSet->end());
-            Cell *current = *currentSet->begin();
+            if(currentSet->size() <= 0)
+                continue;
+
+            n = (int) (rand() % currentSet->size());
+            it = currentSet->begin();
+            std::advance(it,n);
+            Cell *current = *it;
+
+            currentSet->remove(current);
 
             //find free neighbours and grow
             list<Cell*> *neighbours = getFreeNeighbours(current, region, maze);
 
             for (list<Cell*>::iterator it = neighbours->begin(); it != neighbours->end(); it++) {
                 (*it)->state = (isB) ? Cell::B : Cell::A;
-            }
+                currentSet->push_back(*it);
+                region->remove(*it);
 
-            currentSet->insert(currentSet->end(), neighbours->begin(), neighbours->end());
-            region->erase(neighbours->begin(), neighbours->end());
+                if(isB){
+                    b->push_back(*it);
+                } else {
+                    a->push_back(*it);
+                }
+            }
 
             isB = !isB;
         }
 
         setWalls(a, b, maze);
+
+        for (list<Cell*>::iterator it = a->begin(); it != a->end(); it++) {
+            (*it)->state = Cell::UNSET;
+        }
+
+        for (list<Cell*>::iterator it = b->begin(); it != b->end(); it++) {
+            (*it)->state = Cell::UNSET;
+        }
 
         generate(a, maze);
         generate(b, maze);
@@ -70,7 +94,8 @@ void BlobbyDivision::generate(list<Cell*> *region, vector<vector<Cell>> *maze) {
 }
 
 Maze *BlobbyDivision::generate(unsigned int n) {
-    int size = 2 * n;
+    int size = 2 * n - 1;
+    srand(time(NULL));
     Maze *result = new Maze(size, size);
     vector<vector<Cell>> *maze = new vector<vector<Cell>>(n, vector<Cell>());
     list<Cell*> *region = new list<Cell*>();
@@ -98,8 +123,8 @@ Maze *BlobbyDivision::generate(unsigned int n) {
 
     for (int y = 0; y < n; y++) {
         for (int x = 0; x < n; x++) {
-            result->setPosition(x * 2 + 1, y * 2, maze->at(x).at(y).rightWall);
-            result->setPosition(x * 2, y * 2 + 1, maze->at(x).at(y).downWall);
+            result->setPosition(x * 2 + 1, y * 2, maze->at(y).at(x).rightWall);
+            result->setPosition(x * 2, y * 2 + 1, maze->at(y).at(x).downWall);
             result->setPosition(x * 2 + 1, y * 2 + 1, true);
         }
     }
@@ -108,7 +133,7 @@ Maze *BlobbyDivision::generate(unsigned int n) {
 }
 
 list<BlobbyDivision::Cell*>* BlobbyDivision::getFreeNeighbours(BlobbyDivision::Cell *cell, list<Cell*> *region,
-                                                              vector<vector<BlobbyDivision::Cell>> *maze) {
+                                                              vector<vector<BlobbyDivision::Cell>> *maze){
 
     list<BlobbyDivision::Cell*> *neighbours = new list<BlobbyDivision::Cell*>();
     Cell *next = cell;
@@ -150,39 +175,53 @@ void BlobbyDivision::setWalls(list<Cell*> *a, list<Cell*> *b,
 
     for (list<Cell*>::iterator it = a->begin(); it != a->end(); it++) {
         Cell *current = *it;
-        Cell next = maze->at(current->y).at(current->x + 1);
+        Cell *next;
 
-        if (std::find(b->begin(), b->end(), &next) != b->end()) {
-            current->rightWall = true;
-            lastCell = current;
-            isDown = false;
+        if(current->x+1 < maze->size()) {
+
+            next = &maze->at(current->y).at(current->x + 1);
+
+            if (std::find(b->begin(), b->end(), next) != b->end()) {
+                current->rightWall = true;
+                lastCell = current;
+                isDown = false;
+            }
         }
 
-        next = maze->at(current->y + 1).at(current->x);
+        if(current->y+1 < maze->size()){
 
-        if (std::find(b->begin(), b->end(), &next) != b->end()) {
-            current->downWall = true;
-            lastCell = current;
-            isDown = true;
+            next = &maze->at(current->y + 1).at(current->x);
+
+            if (std::find(b->begin(), b->end(), next) != b->end()) {
+                current->downWall = true;
+                lastCell = current;
+                isDown = true;
+            }
         }
     }
 
     for (list<Cell*>::iterator it = b->begin(); it != b->end(); it++) {
         Cell *current = *it;
-        Cell next = maze->at(current->y).at(current->x + 1);
+        Cell *next;
 
-        if (std::find(a->begin(), a->end(), &next) != a->end()) {
-            current->rightWall = true;
-            lastCell = current;
-            isDown = false;
+        if(current->x+1 < maze->size()) {
+            next = &maze->at(current->y).at(current->x + 1);
+
+            if (std::find(a->begin(), a->end(), next) != a->end()) {
+                current->rightWall = true;
+                lastCell = current;
+                isDown = false;
+            }
         }
 
-        next = maze->at(current->y + 1).at(current->x);
+        if(current->y+1 < maze->size()) {
+            next = &maze->at(current->y + 1).at(current->x);
 
-        if (std::find(a->begin(), a->end(), &next) != a->end()) {
-            current->downWall = true;
-            lastCell = current;
-            isDown = true;
+            if (std::find(a->begin(), a->end(), next) != a->end()) {
+                current->downWall = true;
+                lastCell = current;
+                isDown = true;
+            }
         }
     }
     if (lastCell != nullptr) {
