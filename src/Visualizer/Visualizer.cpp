@@ -15,10 +15,11 @@ void Visualizer::visualize() {
 
     drawWalls();
     drawWays();
-    drawDoors();
-    //Update the surface
     SDL_UpdateWindowSurface(gWindow);
-    drawPath();
+
+    topRightThread = SDL_CreateThread(drawPath, "pathTopRight", this);
+    bottomRightThread = SDL_CreateThread(drawPath, "pathBottomRight", this);
+    bottomLeftThread = SDL_CreateThread(drawPath, "pathBottomLeft", this);
 
     //Main loop flag
     bool quit = false;
@@ -33,6 +34,7 @@ void Visualizer::visualize() {
             }
         }
     }
+
     close();
 }
 
@@ -64,10 +66,8 @@ bool Visualizer::init() {
         }
     }
 
-    cWall = SDL_MapRGBA(gScreenSurface->format, 153, 0, 0, 255);
-    cWay = SDL_MapRGBA(gScreenSurface->format, 224, 224, 224, 255);
-    cDoor = SDL_MapRGBA(gScreenSurface->format, 0, 0, 255, 255);
-    cPath = SDL_MapRGBA(gScreenSurface->format, 102, 255, 102, 255);
+    cWall = SDL_MapRGBA(gScreenSurface->format, 0, 0, 0, 255);
+    cWay = SDL_MapRGBA(gScreenSurface->format, 255, 255, 255, 255);
 
     return success;
 }
@@ -77,6 +77,12 @@ void Visualizer::close() {
     //Destroy window
     SDL_DestroyWindow(gWindow);
     gWindow = NULL;
+
+    SDL_WaitThread(topRightThread, NULL);
+    SDL_WaitThread(bottomLeftThread, NULL);
+    SDL_WaitThread(bottomRightThread, NULL);
+
+    SDL_DestroyMutex(mtx);
 
     //Quit SDL subsystems
     SDL_Quit();
@@ -116,34 +122,60 @@ void Visualizer::drawWalls() {
     }
 }
 
-void Visualizer::drawDoors() {
-    SDL_Rect rect = *new SDL_Rect();
-    rect.h = ENTITY_SIZE;
-    rect.w = ENTITY_SIZE;
+int Visualizer::drawPath(void *ptr) {
+    Visualizer *visualizer = (Visualizer *) ptr;
 
-    rect.x = start->x * ENTITY_SIZE;
-    rect.y = start->y * ENTITY_SIZE;
-    SDL_FillRect(gScreenSurface, &rect, cDoor);
-    rect.x = end->x * ENTITY_SIZE;
-    rect.y = end->y * ENTITY_SIZE;
-    SDL_FillRect(gScreenSurface, &rect, cDoor);
-}
+    Maze::Coordinate *start = new Maze::Coordinate(0, 0);
+    Maze::Coordinate *endPos;
+    Uint32 cPath;
 
-void Visualizer::drawPath() {
-    SDL_Rect rect = *new SDL_Rect();
-    rect.h = ENTITY_SIZE;
-    rect.w = ENTITY_SIZE;
-    Maze::Coordinate *coordinate;
-    for (list<Maze::Coordinate>::iterator iterator = coordinates->begin(), end = coordinates->end();
-         iterator != end; ++iterator) {
-        coordinate = &*iterator;
-        rect.x = coordinate->x * ENTITY_SIZE;
-        rect.y = coordinate->y * ENTITY_SIZE;
-        SDL_FillRect(gScreenSurface, &rect, cPath);
-        SDL_Delay(200);
-        //Update the surface
-        SDL_UpdateWindowSurface(gWindow);
+    if (SDL_GetThreadID(visualizer->topRightThread) == SDL_GetThreadID(NULL)) {
+        // Finish is top right of the maze
+        endPos = new Maze::Coordinate(visualizer->maze->getHeight() - 1, 0);
+        cPath = SDL_MapRGBA(visualizer->gScreenSurface->format, 20, 35, 240, 255);
+    } else if (SDL_GetThreadID(visualizer->bottomRightThread) == SDL_GetThreadID(NULL)) {
+        // Finish is bottom right of the maze
+        endPos = new Maze::Coordinate(visualizer->maze->getHeight() - 1, visualizer->maze->getHeight() - 1);
+        cPath = SDL_MapRGBA(visualizer->gScreenSurface->format, 240, 35, 20, 255);
+    } else if (SDL_GetThreadID(visualizer->bottomLeftThread) == SDL_GetThreadID(NULL)) {
+        // Finish is bottom left of the maze
+        endPos = new Maze::Coordinate(0, visualizer->maze->getHeight() - 1);
+        cPath = SDL_MapRGBA(visualizer->gScreenSurface->format, 10, 120, 10, 255);
     }
 
+    Backtracker *bt = new Backtracker(visualizer->maze);
+    list<Maze::Coordinate> way = bt->solve(start, endPos);
 
+    printf("Way has %d elements\n", way.size());
+
+    SDL_Rect rect = *new SDL_Rect();
+    rect.h = visualizer->ENTITY_SIZE;
+    rect.w = visualizer->ENTITY_SIZE;
+    Maze::Coordinate *coordinate;
+
+    Uint32 delay = (Uint32) (2000 / sqrt(visualizer->maze->getHeight() * visualizer->maze->getWidth()));
+    for (list<Maze::Coordinate>::iterator iterator =
+            way.begin(),
+                 end = way.end();
+         iterator != end; ++iterator) {
+        coordinate = &*iterator;
+        rect.x = coordinate->x * visualizer->ENTITY_SIZE;
+        rect.y = coordinate->y * visualizer->ENTITY_SIZE;
+
+        SDL_LockMutex(visualizer->mtx);
+        SDL_FillRect(visualizer->gScreenSurface, &rect, cPath);
+        if (visualizer->gWindow != NULL) {
+            //Update the surface
+            SDL_UpdateWindowSurface(visualizer->gWindow);
+            SDL_UnlockMutex(visualizer->mtx);
+        } else {
+            SDL_UnlockMutex(visualizer->mtx);
+            break;
+        }
+        SDL_Delay(delay);
+    }
+
+    delete bt, way, start, endPos, cPath, coordinate, rect;
+
+    return 0;
 }

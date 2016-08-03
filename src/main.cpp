@@ -1,6 +1,5 @@
 #include "Visualizer/Visualizer.h"
 #include "LabGenerator/Generator.cpp"
-#include "LabGenerator/BlobbyDivision.cpp"
 #include "Algorithm/Backtracker.h"
 
 #ifdef main
@@ -8,15 +7,17 @@
 #endif /* main */
 
 int main() {
+    // Generate maze mit random algorithm
+    //Maze *m = getRandomMaze();
 
-    Maze::Coordinate *start = new Maze::Coordinate(0,0);
-    Maze* m = BlobbyDivision::generate(100);
-    Maze::Coordinate *end = new Maze::Coordinate(m->getWidth()-1,m->getHeight()-1);
-    Backtracker *bt = new Backtracker(m);
-    list<Maze::Coordinate> way = bt->solve(start, end);
+    // Generate maze with recursive division
+    Maze *m = getRandomMazeWithDivision(50,50);
+
+    // Generate maze with recursive division and random wall placement
+    //Maze *m = getRandomWallsMazeWithDivision(50,50);
 
 
-    Visualizer visualizer = *new Visualizer(m, &way, start, end);
+    Visualizer visualizer = *new Visualizer(m);
     visualizer.visualize();
 
 
