@@ -139,7 +139,7 @@ int Visualizer::drawPath(void *ptr) {
         cPath = SDL_MapRGBA(visualizer->gScreenSurface->format, 240, 35, 20, 255);
     } else if (SDL_GetThreadID(visualizer->bottomLeftThread) == SDL_GetThreadID(NULL)) {
         // Finish is bottom left of the maze
-        endPos = new Maze::Coordinate(2, visualizer->maze->getHeight() - 1);
+        endPos = new Maze::Coordinate(0, visualizer->maze->getHeight() - 1);
         cPath = SDL_MapRGBA(visualizer->gScreenSurface->format, 10, 120, 10, 255);
     }
 
