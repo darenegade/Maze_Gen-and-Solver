@@ -33,3 +33,12 @@ TEST(generator, test_maze_blobby_solvable) {
     list <Maze::Coordinate> l = b->solve(c, cc);
     EXPECT_GT(l.size(), 0);
 }
+
+TEST(generator, test_maze_random_solvable) {
+    Maze *m = Generator::getRandomMaze();
+    Backtracker *b = new Backtracker(m);
+    Maze::Coordinate *c = new Maze::Coordinate(0, 0);
+    Maze::Coordinate *cc = new Maze::Coordinate(m->getHeight() - 1, m->getHeight() - 1);
+    list <Maze::Coordinate> l = b->solve(c, cc);
+    EXPECT_GT(l.size(), 0);
+}
