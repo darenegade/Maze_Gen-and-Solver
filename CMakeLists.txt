@@ -30,13 +30,20 @@ add_executable(
         src/main.cpp
 )
 
-add_library(grp04-algdatII-lib
-        src/main.cpp
-        )
+add_library(grp04-algdatII-lib)
+
+target_link_libraries(
+        grp04-algdatII-lib
+        Visualizer
+        Generator
+        Algorithm
+        ${SDL2_LIBRARY}
+)
 
 target_link_libraries(
         grp04-algdatII
-        visualizer
+        Visualizer
+        Generator
         Algorithm
         ${SDL2_LIBRARY}
 )
