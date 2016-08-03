@@ -1,0 +1,52 @@
+\hypertarget{class_backtracker}{}\section{Backtracker Class Reference}
+\label{class_backtracker}\index{Backtracker@{Backtracker}}
+
+
+{\ttfamily \#include $<$Backtracker.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_backtracker_a3fdf6d6db8d35ee225db2cd99f7429c0}{Backtracker} (\hyperlink{class_maze}{Maze} $\ast$m)
+\item 
+list$<$ \hyperlink{struct_maze_1_1_coordinate}{Maze\+::\+Coordinate} $>$ \hyperlink{class_backtracker_af704bfae3206d4e10036a1f9c9260b3d}{solve} (\hyperlink{struct_maze_1_1_coordinate}{Maze\+::\+Coordinate} $\ast$, \hyperlink{struct_maze_1_1_coordinate}{Maze\+::\+Coordinate} $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Backtracker@{Backtracker}!Backtracker@{Backtracker}}
+\index{Backtracker@{Backtracker}!Backtracker@{Backtracker}}
+\subsubsection[{\texorpdfstring{Backtracker(\+Maze $\ast$m)}{Backtracker(Maze *m)}}]{\setlength{\rightskip}{0pt plus 5cm}Backtracker\+::\+Backtracker (
+\begin{DoxyParamCaption}
+\item[{{\bf Maze} $\ast$}]{m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_backtracker_a3fdf6d6db8d35ee225db2cd99f7429c0}{}\label{class_backtracker_a3fdf6d6db8d35ee225db2cd99f7429c0}
+
+
+\subsection{Member Function Documentation}
+\index{Backtracker@{Backtracker}!solve@{solve}}
+\index{solve@{solve}!Backtracker@{Backtracker}}
+\subsubsection[{\texorpdfstring{solve(\+Maze\+::\+Coordinate $\ast$, Maze\+::\+Coordinate $\ast$)}{solve(Maze::Coordinate *, Maze::Coordinate *)}}]{\setlength{\rightskip}{0pt plus 5cm}list$<$ {\bf Maze\+::\+Coordinate} $>$ Backtracker\+::solve (
+\begin{DoxyParamCaption}
+\item[{{\bf Maze\+::\+Coordinate} $\ast$}]{start, }
+\item[{{\bf Maze\+::\+Coordinate} $\ast$}]{end}
+\end{DoxyParamCaption}
+)}\hypertarget{class_backtracker_af704bfae3206d4e10036a1f9c9260b3d}{}\label{class_backtracker_af704bfae3206d4e10036a1f9c9260b3d}
+Solves a maze using the backtrack-\/algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & coordinates of the start \\
+\hline
+{\em end} & coordinates of the target \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a list of coordinates leading from start to end, if there is a solution. empty list for an impossible maze. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Algorithm/\hyperlink{_backtracker_8h}{Backtracker.\+h}\item 
+src/\+Algorithm/\hyperlink{_backtracker_8cpp}{Backtracker.\+cpp}\end{DoxyCompactItemize}

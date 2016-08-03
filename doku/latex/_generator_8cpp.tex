@@ -1,0 +1,105 @@
+\hypertarget{_generator_8cpp}{}\section{src/\+Lab\+Generator/\+Generator.cpp File Reference}
+\label{_generator_8cpp}\index{src/\+Lab\+Generator/\+Generator.\+cpp@{src/\+Lab\+Generator/\+Generator.\+cpp}}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}../\+Structs/\+Structs.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_maze}{Maze} $\ast$ \hyperlink{_generator_8cpp_a888f3baef5745b325ef70b6d73656571}{get\+Maze\+With\+Walls} ()
+\item 
+\hyperlink{class_maze}{Maze} $\ast$ \hyperlink{_generator_8cpp_ac6ba190e903e9a5947efd2252506efc1}{get\+Random\+Maze} ()
+\item 
+void \hyperlink{_generator_8cpp_a507bdea2f03d896837b51dab16dba7fc}{inner\+Maze\+Part} (\hyperlink{class_maze}{Maze} $\ast$maze, \hyperlink{struct_maze_1_1_coordinate}{Maze\+::\+Coordinate} $\ast$left\+Upper, \hyperlink{struct_maze_1_1_coordinate}{Maze\+::\+Coordinate} $\ast$right\+Lower, bool random\+Walls)
+\item 
+\hyperlink{class_maze}{Maze} $\ast$ \hyperlink{_generator_8cpp_a6dc499ac6656ed47655495af208b033b}{get\+Random\+Maze\+With\+Division} (int width, int height)
+\item 
+\hyperlink{class_maze}{Maze} $\ast$ \hyperlink{_generator_8cpp_ae42a29599a85eb435be8f0b8c0b7c435}{get\+Random\+Walls\+Maze\+With\+Division} (int width, int height)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{Generator.\+cpp@{Generator.\+cpp}!get\+Maze\+With\+Walls@{get\+Maze\+With\+Walls}}
+\index{get\+Maze\+With\+Walls@{get\+Maze\+With\+Walls}!Generator.\+cpp@{Generator.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Maze\+With\+Walls()}{getMazeWithWalls()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Maze}$\ast$ get\+Maze\+With\+Walls (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{_generator_8cpp_a888f3baef5745b325ef70b6d73656571}{}\label{_generator_8cpp_a888f3baef5745b325ef70b6d73656571}
+Returns the static maze in which the edges are walls except for the start end point. \begin{DoxyReturn}{Returns}
+empty maze 
+\end{DoxyReturn}
+\index{Generator.\+cpp@{Generator.\+cpp}!get\+Random\+Maze@{get\+Random\+Maze}}
+\index{get\+Random\+Maze@{get\+Random\+Maze}!Generator.\+cpp@{Generator.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Random\+Maze()}{getRandomMaze()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Maze}$\ast$ get\+Random\+Maze (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{_generator_8cpp_ac6ba190e903e9a5947efd2252506efc1}{}\label{_generator_8cpp_ac6ba190e903e9a5947efd2252506efc1}
+Returns a complete random maze. There will be a solution to the maze. \begin{DoxyReturn}{Returns}
+random maze 
+\end{DoxyReturn}
+\index{Generator.\+cpp@{Generator.\+cpp}!get\+Random\+Maze\+With\+Division@{get\+Random\+Maze\+With\+Division}}
+\index{get\+Random\+Maze\+With\+Division@{get\+Random\+Maze\+With\+Division}!Generator.\+cpp@{Generator.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Random\+Maze\+With\+Division(int width, int height)}{getRandomMazeWithDivision(int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Maze}$\ast$ get\+Random\+Maze\+With\+Division (
+\begin{DoxyParamCaption}
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{_generator_8cpp_a6dc499ac6656ed47655495af208b033b}{}\label{_generator_8cpp_a6dc499ac6656ed47655495af208b033b}
+Returns a randomly generated maze using the recursive division-\/algorithm. For better results even numbers for width and height will be reduced by 1. Walls will be dividing in half. Gaps will be random.
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & wanted width of the maze \\
+\hline
+{\em height} & wanted height of the maze \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the generated maze 
+\end{DoxyReturn}
+\index{Generator.\+cpp@{Generator.\+cpp}!get\+Random\+Walls\+Maze\+With\+Division@{get\+Random\+Walls\+Maze\+With\+Division}}
+\index{get\+Random\+Walls\+Maze\+With\+Division@{get\+Random\+Walls\+Maze\+With\+Division}!Generator.\+cpp@{Generator.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Random\+Walls\+Maze\+With\+Division(int width, int height)}{getRandomWallsMazeWithDivision(int width, int height)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Maze}$\ast$ get\+Random\+Walls\+Maze\+With\+Division (
+\begin{DoxyParamCaption}
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{_generator_8cpp_ae42a29599a85eb435be8f0b8c0b7c435}{}\label{_generator_8cpp_ae42a29599a85eb435be8f0b8c0b7c435}
+Returns a randomly generated maze using the recursive division-\/algorithm. For better results even numbers for width and height will be reduced by 1. Walls and gaps will be random;
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & wanted width of the maze \\
+\hline
+{\em height} & wanted height of the maze \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the generated maze 
+\end{DoxyReturn}
+\index{Generator.\+cpp@{Generator.\+cpp}!inner\+Maze\+Part@{inner\+Maze\+Part}}
+\index{inner\+Maze\+Part@{inner\+Maze\+Part}!Generator.\+cpp@{Generator.\+cpp}}
+\subsubsection[{\texorpdfstring{inner\+Maze\+Part(\+Maze $\ast$maze, Maze\+::\+Coordinate $\ast$left\+Upper, Maze\+::\+Coordinate $\ast$right\+Lower, bool random\+Walls)}{innerMazePart(Maze *maze, Maze::Coordinate *leftUpper, Maze::Coordinate *rightLower, bool randomWalls)}}]{\setlength{\rightskip}{0pt plus 5cm}void inner\+Maze\+Part (
+\begin{DoxyParamCaption}
+\item[{{\bf Maze} $\ast$}]{maze, }
+\item[{{\bf Maze\+::\+Coordinate} $\ast$}]{left\+Upper, }
+\item[{{\bf Maze\+::\+Coordinate} $\ast$}]{right\+Lower, }
+\item[{bool}]{random\+Walls}
+\end{DoxyParamCaption}
+)}\hypertarget{_generator_8cpp_a507bdea2f03d896837b51dab16dba7fc}{}\label{_generator_8cpp_a507bdea2f03d896837b51dab16dba7fc}
+Inserts a wall with a gap into the maze. The wall will divide the given rectangle defined by left\+Upper and right\+Lower (including both points). If the rectangles height is bigger than it´s width, it will be divided horizontally, otherwise vertically. After inserting the wall this method will be recursively called with both inner rectangles. The Method returns if width or height is 2 or smaller.
+
+The rectangle is expected to be of odd width and hight for best results.
+
+
+\begin{DoxyParams}{Parameters}
+{\em maze} & the maze in which the wall shall be inserted \\
+\hline
+{\em left\+Upper} & the left upper coordinate of the rectangle to alter \\
+\hline
+{\em right\+Lower} & the right lower coordinate of the rectangle to alter \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,180 @@
+\hypertarget{class_visualizer}{}\section{Visualizer Class Reference}
+\label{class_visualizer}\index{Visualizer@{Visualizer}}
+
+
+{\ttfamily \#include $<$Visualizer.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_visualizer_a80420c54a397dead25f3b2540d290c58}{init} ()
+\item 
+void \hyperlink{class_visualizer_a1bfbbd16ae137b3f3e584469d336476a}{draw\+Walls} ()
+\item 
+void \hyperlink{class_visualizer_ae01e3c8d5389b0a9dcd17c4e1c5fab01}{draw\+Ways} ()
+\item 
+void \hyperlink{class_visualizer_aed71b7ecab67393c5a6805d4bc573f7b}{close} ()
+\item 
+\hyperlink{class_visualizer_ae325a113b562ffc80a45416218184b27}{Visualizer} (\hyperlink{class_maze}{Maze} $\ast$\hyperlink{class_visualizer_a6a395e1836267177157554215304cb15}{maze})
+\item 
+void \hyperlink{class_visualizer_ad772d4b6adce1a7bd9bb019b90d33f39}{visualize} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{class_visualizer_ab22c92427c3f8f3cc27a54b2b6724ba3}{draw\+Path} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+S\+D\+L\+\_\+mutex $\ast$ \hyperlink{class_visualizer_af3cda6322743e852a05cdc6677727752}{mtx} = S\+D\+L\+\_\+\+Create\+Mutex()
+\item 
+S\+D\+L\+\_\+\+Window $\ast$ \hyperlink{class_visualizer_a7bf9d248519e29ed8083706569c663c5}{g\+Window} = N\+U\+LL
+\item 
+S\+D\+L\+\_\+\+Surface $\ast$ \hyperlink{class_visualizer_aa484855f44f50a0dedfe23a53e02b856}{g\+Screen\+Surface} = N\+U\+LL
+\item 
+S\+D\+L\+\_\+\+Thread $\ast$ \hyperlink{class_visualizer_a0aed37d9a5c9c7f89bfb5a87e4cf3898}{top\+Right\+Thread} = N\+U\+LL
+\item 
+S\+D\+L\+\_\+\+Thread $\ast$ \hyperlink{class_visualizer_ad53bf4446b78642564095f8733f0310e}{bottom\+Left\+Thread} = N\+U\+LL
+\item 
+S\+D\+L\+\_\+\+Thread $\ast$ \hyperlink{class_visualizer_a27e00041c805a99b433fcea5e0f2b678}{bottom\+Right\+Thread} = N\+U\+LL
+\item 
+\hyperlink{class_maze}{Maze} $\ast$ \hyperlink{class_visualizer_a6a395e1836267177157554215304cb15}{maze}
+\item 
+int \hyperlink{class_visualizer_a5dab241289bfd894f141b07a0f34f70d}{S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE} = 640
+\item 
+const int \hyperlink{class_visualizer_a5c699928671f8be884b1d7801c242490}{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X} = 50
+\item 
+const int \hyperlink{class_visualizer_a96ed3b95d01478071f5bfe091871488c}{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y} = 50
+\item 
+int \hyperlink{class_visualizer_a2d78c20644f717427431a22a23dbcf6b}{E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE}
+\item 
+Uint32 \hyperlink{class_visualizer_aa085df305d7d462052b8b1bc8870c581}{c\+Wall}
+\item 
+Uint32 \hyperlink{class_visualizer_a96d89d736020641b4aa7a8153568c143}{c\+Way}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Visualizes the generated maze and the possible solutions 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Visualizer@{Visualizer}!Visualizer@{Visualizer}}
+\index{Visualizer@{Visualizer}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{Visualizer(\+Maze $\ast$maze)}{Visualizer(Maze *maze)}}]{\setlength{\rightskip}{0pt plus 5cm}Visualizer\+::\+Visualizer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maze} $\ast$}]{maze}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_visualizer_ae325a113b562ffc80a45416218184b27}{}\label{class_visualizer_ae325a113b562ffc80a45416218184b27}
+Constructor of the \hyperlink{class_visualizer}{Visualizer} 
+\begin{DoxyParams}{Parameters}
+{\em maze} & \hyperlink{class_maze}{Maze} to get visualized. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_visualizer}{Visualizer} to visualize the maze. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Visualizer@{Visualizer}!close@{close}}
+\index{close@{close}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{close()}{close()}}]{\setlength{\rightskip}{0pt plus 5cm}void Visualizer\+::close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_visualizer_aed71b7ecab67393c5a6805d4bc573f7b}{}\label{class_visualizer_aed71b7ecab67393c5a6805d4bc573f7b}
+Closes the window and destroys all used pointers, surfaces etc. \index{Visualizer@{Visualizer}!draw\+Path@{draw\+Path}}
+\index{draw\+Path@{draw\+Path}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{draw\+Path(void $\ast$ptr)}{drawPath(void *ptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int Visualizer\+::draw\+Path (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_visualizer_ab22c92427c3f8f3cc27a54b2b6724ba3}{}\label{class_visualizer_ab22c92427c3f8f3cc27a54b2b6724ba3}
+S\+D\+L\+\_\+\+Thread function to draw the solution of the maze in a seperate thread. 
+\begin{DoxyParams}{Parameters}
+{\em ptr} & Pointer to the visualizer instance in which the path should be shown. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the status code of this thread. 
+\end{DoxyReturn}
+\index{Visualizer@{Visualizer}!draw\+Walls@{draw\+Walls}}
+\index{draw\+Walls@{draw\+Walls}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{draw\+Walls()}{drawWalls()}}]{\setlength{\rightskip}{0pt plus 5cm}void Visualizer\+::draw\+Walls (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_visualizer_a1bfbbd16ae137b3f3e584469d336476a}{}\label{class_visualizer_a1bfbbd16ae137b3f3e584469d336476a}
+Method to draw the walls of the maze. \index{Visualizer@{Visualizer}!draw\+Ways@{draw\+Ways}}
+\index{draw\+Ways@{draw\+Ways}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{draw\+Ways()}{drawWays()}}]{\setlength{\rightskip}{0pt plus 5cm}void Visualizer\+::draw\+Ways (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_visualizer_ae01e3c8d5389b0a9dcd17c4e1c5fab01}{}\label{class_visualizer_ae01e3c8d5389b0a9dcd17c4e1c5fab01}
+Method to draw the ways of the maze. \index{Visualizer@{Visualizer}!init@{init}}
+\index{init@{init}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{init()}{init()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Visualizer\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_visualizer_a80420c54a397dead25f3b2540d290c58}{}\label{class_visualizer_a80420c54a397dead25f3b2540d290c58}
+Initialization method. Creates, configures and shows the window. \begin{DoxyReturn}{Returns}
+true, if the initialization was succsessfull. 
+\end{DoxyReturn}
+\index{Visualizer@{Visualizer}!visualize@{visualize}}
+\index{visualize@{visualize}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{visualize()}{visualize()}}]{\setlength{\rightskip}{0pt plus 5cm}void Visualizer\+::visualize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_visualizer_ad772d4b6adce1a7bd9bb019b90d33f39}{}\label{class_visualizer_ad772d4b6adce1a7bd9bb019b90d33f39}
+Starts the visualization of the maze and kicks of the three path-\/drawing threads to show the solution. 
+
+\subsection{Member Data Documentation}
+\index{Visualizer@{Visualizer}!bottom\+Left\+Thread@{bottom\+Left\+Thread}}
+\index{bottom\+Left\+Thread@{bottom\+Left\+Thread}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{bottom\+Left\+Thread}{bottomLeftThread}}]{\setlength{\rightskip}{0pt plus 5cm}S\+D\+L\+\_\+\+Thread$\ast$ Visualizer\+::bottom\+Left\+Thread = N\+U\+LL}\hypertarget{class_visualizer_ad53bf4446b78642564095f8733f0310e}{}\label{class_visualizer_ad53bf4446b78642564095f8733f0310e}
+Drawing thread that draws the path with the bottom left corner marked as exit. \index{Visualizer@{Visualizer}!bottom\+Right\+Thread@{bottom\+Right\+Thread}}
+\index{bottom\+Right\+Thread@{bottom\+Right\+Thread}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{bottom\+Right\+Thread}{bottomRightThread}}]{\setlength{\rightskip}{0pt plus 5cm}S\+D\+L\+\_\+\+Thread$\ast$ Visualizer\+::bottom\+Right\+Thread = N\+U\+LL}\hypertarget{class_visualizer_a27e00041c805a99b433fcea5e0f2b678}{}\label{class_visualizer_a27e00041c805a99b433fcea5e0f2b678}
+Drawing thread that draws the path with the bottom right corner marked as exit. \index{Visualizer@{Visualizer}!c\+Wall@{c\+Wall}}
+\index{c\+Wall@{c\+Wall}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{c\+Wall}{cWall}}]{\setlength{\rightskip}{0pt plus 5cm}Uint32 Visualizer\+::c\+Wall}\hypertarget{class_visualizer_aa085df305d7d462052b8b1bc8870c581}{}\label{class_visualizer_aa085df305d7d462052b8b1bc8870c581}
+Color of the wall. \index{Visualizer@{Visualizer}!c\+Way@{c\+Way}}
+\index{c\+Way@{c\+Way}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{c\+Way}{cWay}}]{\setlength{\rightskip}{0pt plus 5cm}Uint32 Visualizer\+::c\+Way}\hypertarget{class_visualizer_a96d89d736020641b4aa7a8153568c143}{}\label{class_visualizer_a96d89d736020641b4aa7a8153568c143}
+Color of the Ways. \index{Visualizer@{Visualizer}!E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE@{E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE}}
+\index{E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE@{E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE}{ENTITY_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}int Visualizer\+::\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+I\+ZE}\hypertarget{class_visualizer_a2d78c20644f717427431a22a23dbcf6b}{}\label{class_visualizer_a2d78c20644f717427431a22a23dbcf6b}
+Size in pixels of the entities. Entities are walls, ways and paths. \index{Visualizer@{Visualizer}!g\+Screen\+Surface@{g\+Screen\+Surface}}
+\index{g\+Screen\+Surface@{g\+Screen\+Surface}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{g\+Screen\+Surface}{gScreenSurface}}]{\setlength{\rightskip}{0pt plus 5cm}S\+D\+L\+\_\+\+Surface$\ast$ Visualizer\+::g\+Screen\+Surface = N\+U\+LL}\hypertarget{class_visualizer_aa484855f44f50a0dedfe23a53e02b856}{}\label{class_visualizer_aa484855f44f50a0dedfe23a53e02b856}
+The surface contained by the window. \index{Visualizer@{Visualizer}!g\+Window@{g\+Window}}
+\index{g\+Window@{g\+Window}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{g\+Window}{gWindow}}]{\setlength{\rightskip}{0pt plus 5cm}S\+D\+L\+\_\+\+Window$\ast$ Visualizer\+::g\+Window = N\+U\+LL}\hypertarget{class_visualizer_a7bf9d248519e29ed8083706569c663c5}{}\label{class_visualizer_a7bf9d248519e29ed8083706569c663c5}
+The window to get rendered on. \index{Visualizer@{Visualizer}!maze@{maze}}
+\index{maze@{maze}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{maze}{maze}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Maze}$\ast$ Visualizer\+::maze}\hypertarget{class_visualizer_a6a395e1836267177157554215304cb15}{}\label{class_visualizer_a6a395e1836267177157554215304cb15}
+The maze that gets visualized. \index{Visualizer@{Visualizer}!mtx@{mtx}}
+\index{mtx@{mtx}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{mtx}{mtx}}]{\setlength{\rightskip}{0pt plus 5cm}S\+D\+L\+\_\+mutex$\ast$ Visualizer\+::mtx = S\+D\+L\+\_\+\+Create\+Mutex()}\hypertarget{class_visualizer_af3cda6322743e852a05cdc6677727752}{}\label{class_visualizer_af3cda6322743e852a05cdc6677727752}
+Used to synchronize the path-\/drawing threads to prevent deleted drawing operations. \index{Visualizer@{Visualizer}!S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X@{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X}}
+\index{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X@{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X}{SCREEN_POS_X}}]{\setlength{\rightskip}{0pt plus 5cm}const int Visualizer\+::\+S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+X = 50}\hypertarget{class_visualizer_a5c699928671f8be884b1d7801c242490}{}\label{class_visualizer_a5c699928671f8be884b1d7801c242490}
+x-\/\+Position of the window in pixels. \index{Visualizer@{Visualizer}!S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y@{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y}}
+\index{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y@{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y}{SCREEN_POS_Y}}]{\setlength{\rightskip}{0pt plus 5cm}const int Visualizer\+::\+S\+C\+R\+E\+E\+N\+\_\+\+P\+O\+S\+\_\+Y = 50}\hypertarget{class_visualizer_a96ed3b95d01478071f5bfe091871488c}{}\label{class_visualizer_a96ed3b95d01478071f5bfe091871488c}
+y-\/position of the window in pixels. \index{Visualizer@{Visualizer}!S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE@{S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE}}
+\index{S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE@{S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE}{SCREEN_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}int Visualizer\+::\+S\+C\+R\+E\+E\+N\+\_\+\+S\+I\+ZE = 640}\hypertarget{class_visualizer_a5dab241289bfd894f141b07a0f34f70d}{}\label{class_visualizer_a5dab241289bfd894f141b07a0f34f70d}
+Size of the window in pixels. The window is always square. \index{Visualizer@{Visualizer}!top\+Right\+Thread@{top\+Right\+Thread}}
+\index{top\+Right\+Thread@{top\+Right\+Thread}!Visualizer@{Visualizer}}
+\subsubsection[{\texorpdfstring{top\+Right\+Thread}{topRightThread}}]{\setlength{\rightskip}{0pt plus 5cm}S\+D\+L\+\_\+\+Thread$\ast$ Visualizer\+::top\+Right\+Thread = N\+U\+LL}\hypertarget{class_visualizer_a0aed37d9a5c9c7f89bfb5a87e4cf3898}{}\label{class_visualizer_a0aed37d9a5c9c7f89bfb5a87e4cf3898}
+Drawing thread that draws the path with the top right corner marked as exit. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Visualizer/\hyperlink{_visualizer_8h}{Visualizer.\+h}\item 
+src/\+Visualizer/\hyperlink{_visualizer_8cpp}{Visualizer.\+cpp}\end{DoxyCompactItemize}
