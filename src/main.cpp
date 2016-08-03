@@ -12,13 +12,13 @@ int main() {
     //Maze *m = getRandomMaze();
 
     // Generate maze with recursive division
-    //Maze *m = getRandomMazeWithDivision(50,50);
+    //Maze *m = getRandomMazeWithDivision(105,105);
 
     // Generate maze with recursive division and random wall placement
-    //Maze *m = getRandomWallsMazeWithDivision(50,50);
+    //Maze *m = getRandomWallsMazeWithDivision(105,105);
 
     // Generate maze with recursive division
-    Maze *m = BlobbyDivision::generate(50);
+    Maze *m = BlobbyDivision::generate(53);
 
 
     Visualizer visualizer = *new Visualizer(m);
