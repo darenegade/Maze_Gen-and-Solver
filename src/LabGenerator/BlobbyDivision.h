@@ -6,6 +6,7 @@
 #define GRP04_ALGDATII_BLOBBYDIVISION_H
 
 #include <list>
+#include <algorithm>
 #include "../Structs/Structs.h"
 
 class BlobbyDivision {
