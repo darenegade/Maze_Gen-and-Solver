@@ -1,3 +1,3 @@
 # Maze Generation and Solving
 
-[![](https://travis-ci.org/algdat/grp04-algdatII.svg?branch=master)](https://travis-ci.org/algdat/grp04-algdatII)
+[![Build Status](https://travis-ci.org/darenegade/Maze_Gen-and-Solver.svg?branch=master)](https://travis-ci.org/darenegade/Maze_Gen-and-Solver)
